@@ -2175,8 +2175,7 @@
      ⚙️  EDIT THESE TWO VALUES BEFORE GOING LIVE
      ============================================================ */
   const COHORT_DEADLINE = '2026-06-18T23:59:59';   // when applications for the next batch close
-  const WHATSAPP_NUMBER = '919493925094';          // Raghu admissions WhatsApp, intl format, no '+'
-  const WHATSAPP_TEXT   = "Hi! I'm a Raghu Engineering College student and I have a few questions about ALP. Could you help me out?";
+  // WhatsApp support not live yet — buttons show a "launching shortly" toast (see WhatsApp links below)
   /* ============================================================ */
 
   // ---------- Header scroll state + scroll progress + back-to-top ----------
@@ -2303,9 +2302,35 @@
   // Submission + auth gating is handled by the Firebase module script near the end of <body>.
 
   // ---------- WhatsApp links ----------
-  const waHref = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(WHATSAPP_TEXT);
-  // WhatsApp is for assistance/questions only — registration happens via the form.
-  ['waBtn', 'waTalk', 'waForm'].forEach(id => { const el = document.getElementById(id); if (el) el.href = waHref; });
+  // WhatsApp support isn't live yet — on click, let people know it's coming soon
+  // and point them to the form for registration (which works right now).
+  function showWaToast() {
+    let t = document.getElementById('waToast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'waToast';
+      t.setAttribute('role', 'status');
+      t.style.cssText = 'position:fixed;left:50%;bottom:88px;transform:translateX(-50%) translateY(12px);' +
+        'max-width:min(92vw,420px);background:#0b1220;color:#fff;padding:14px 18px;border-radius:12px;' +
+        'box-shadow:0 12px 40px rgba(0,0,0,.35);font-size:14px;line-height:1.4;text-align:center;' +
+        'z-index:9999;opacity:0;transition:opacity .25s ease,transform .25s ease;pointer-events:none;';
+      document.body.appendChild(t);
+    }
+    t.textContent = 'WhatsApp support is launching shortly. In the meantime, please apply using the form — we’ll get back to you.';
+    requestAnimationFrame(() => { t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(0)'; });
+    clearTimeout(showWaToast._tid);
+    showWaToast._tid = setTimeout(() => {
+      t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(12px)';
+    }, 3600);
+  }
+  ['waBtn', 'waTalk', 'waForm'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.removeAttribute('href');
+    el.removeAttribute('target');
+    el.style.cursor = 'pointer';
+    el.addEventListener('click', (e) => { e.preventDefault(); showWaToast(); });
+  });
 
   // ---------- Apply modal (pop the form up so registration is one tap away) ----------
   (function () {
