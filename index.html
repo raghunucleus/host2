@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Raghu's ALP — We don't make vibe coders. We make engineers.</title>
+<meta name="description" content="Raghu's ALP is a structured, AI-native engineering training programme from Raghu Engineering College that prepares its students for the careers companies actually hire for today. We don't make vibe coders. We make engineers." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* ============================================================
+     ALP — Blue & White edition
+     Single-file site. Copy is locked per the content brief.
+     ============================================================ */
+
+  :root {
+    --white: #ffffff;
+    --bg-soft: #f3f7ff;
+    --bg-tint: #eaf1ff;
+    --ink: #081130;          /* deep navy text */
+    --ink-soft: #4a5680;     /* muted navy */
+    --ink-faint: #8a93b5;
+    --blue: #1f5fff;         /* primary blue */
+    --blue-deep: #0a2fb0;
+    --blue-electric: #3d8bff;/* accent */
+    --navy: #061026;         /* hero background base */
+    --navy-2: #0b1f5c;
+    --line: #dfe8ff;
+    --line-soft: #eef3ff;
+    --radius: 18px;
+    --radius-lg: 26px;
+    --shadow: 0 18px 50px -24px rgba(11, 31, 92, 0.35);
+    --shadow-soft: 0 10px 30px -18px rgba(11, 31, 92, 0.25);
+    --maxw: 1200px;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--white);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, .display {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+
+  .wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+  .accent { color: var(--blue); }
+  .strike {
+    position: relative;
+    color: var(--ink-faint);
+    white-space: nowrap;
+  }
+  .strike::after {
+    content: "";
+    position: absolute;
+    left: -2%; right: -2%;
+    top: 52%;
+    height: 0.11em;
+    background: var(--blue-electric);
+    transform: rotate(-3deg);
+    border-radius: 4px;
+    box-shadow: 0 0 12px rgba(61, 139, 255, 0.6);
+  }
+
+  .eyebrow {
+    font-family: 'Space Grotesk', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--blue);
+  }
+  .eyebrow.light { color: var(--blue-electric); }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5em;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 0.98rem;
+    padding: 0.85em 1.5em;
+    border-radius: 100px;
+    border: 1.5px solid transparent;
+    cursor: pointer;
+    transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), background 0.25s, color 0.25s;
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background: var(--blue);
+    color: #fff;
+    box-shadow: 0 12px 28px -10px rgba(31, 95, 255, 0.65);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 18px 38px -12px rgba(31, 95, 255, 0.75); background: var(--blue-deep); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--blue);
+    border-color: var(--line);
+  }
+  .btn-ghost:hover { border-color: var(--blue); transform: translateY(-2px); }
+  .btn-light { background: #fff; color: var(--navy); }
+  .btn-light:hover { transform: translateY(-2px); box-shadow: 0 18px 38px -12px rgba(0,0,0,0.35); }
+  .btn-outline-light { background: transparent; color: #fff; border-color: rgba(255,255,255,0.4); }
+  .btn-outline-light:hover { border-color: #fff; transform: translateY(-2px); }
+  .btn .arrow { transition: transform 0.25s var(--ease); }
+  .btn:hover .arrow { transform: translateX(3px); }
+
+  /* ---------- Header ---------- */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    transition: background 0.3s, box-shadow 0.3s, padding 0.3s;
+    padding: 18px 0;
+  }
+  header.scrolled {
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    box-shadow: 0 1px 0 var(--line);
+    padding: 12px 0;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; font-size: 1.5rem; letter-spacing: -0.03em;
+    color: var(--ink); display: flex; align-items: center; gap: 8px;
+  }
+  .logo .dot { color: var(--blue); }
+  .nav-links { display: flex; align-items: center; gap: 30px; }
+  .nav-links a.navlink {
+    font-size: 0.92rem; font-weight: 500; color: var(--ink-soft);
+    transition: color 0.2s; position: relative;
+  }
+  .nav-links a.navlink:hover { color: var(--blue); }
+  .nav-cta { display: flex; align-items: center; gap: 12px; }
+
+  .hamburger {
+    display: none; flex-direction: column; gap: 5px;
+    background: none; border: none; cursor: pointer; padding: 8px;
+  }
+  .hamburger span { width: 24px; height: 2px; background: var(--ink); border-radius: 2px; transition: 0.3s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu {
+    position: fixed; inset: 0 0 0 auto; width: min(320px, 84vw);
+    background: #fff; z-index: 99;
+    transform: translateX(100%); transition: transform 0.4s var(--ease);
+    box-shadow: -20px 0 60px -20px rgba(8,17,48,0.4);
+    padding: 100px 32px 40px; display: flex; flex-direction: column; gap: 6px;
+  }
+  .mobile-menu.open { transform: translateX(0); }
+  .mobile-menu a.navlink { padding: 14px 0; font-size: 1.15rem; font-weight: 600; border-bottom: 1px solid var(--line-soft); color: var(--ink); }
+  .mobile-menu .btn { margin-top: 20px; justify-content: center; }
+  .overlay { position: fixed; inset: 0; background: rgba(8,17,48,0.4); z-index: 98; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+  .overlay.show { opacity: 1; pointer-events: auto; }
+
+  /* ---------- Sections ---------- */
+  section { position: relative; }
+  .pad { padding: clamp(70px, 11vw, 140px) 0; }
+  .section-head { max-width: 760px; margin-bottom: 56px; }
+  .section-head h2 { font-size: clamp(2rem, 5vw, 3.4rem); margin: 16px 0; }
+  .section-head .sub { font-size: clamp(1.02rem, 1.6vw, 1.2rem); color: var(--ink-soft); max-width: 640px; }
+
+  /* ---------- Reveal animation ---------- */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+  .reveal.in { opacity: 1; transform: none; }
+  .reveal.d1 { transition-delay: 0.08s; }
+  .reveal.d2 { transition-delay: 0.16s; }
+  .reveal.d3 { transition-delay: 0.24s; }
+  .reveal.d4 { transition-delay: 0.32s; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* ============================================================
+     HERO
+     ============================================================ */
+  .hero {
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(61,139,255,0.35), transparent 60%),
+      radial-gradient(900px 500px at 0% 110%, rgba(31,95,255,0.3), transparent 55%),
+      linear-gradient(160deg, var(--navy) 0%, var(--navy-2) 100%);
+    color: #fff;
+    padding: clamp(140px, 20vh, 220px) 0 clamp(80px, 12vw, 130px);
+    overflow: hidden;
+  }
+  .hero::before {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 64px 64px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 40%, transparent 80%);
+    mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 40%, transparent 80%);
+    pointer-events: none;
+  }
+  .hero .wrap { position: relative; z-index: 2; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 16px; border-radius: 100px;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16);
+    color: #cdd9ff; font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.78rem; letter-spacing: 0.04em; margin-bottom: 30px;
+  }
+  .hero-eyebrow .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--blue-electric); box-shadow: 0 0 0 0 rgba(61,139,255,0.7); animation: pulse 2.2s infinite; }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(61,139,255,0.6);} 70%{ box-shadow: 0 0 0 12px rgba(61,139,255,0);} 100%{ box-shadow:0 0 0 0 rgba(61,139,255,0);} }
+  .hero h1 {
+    font-size: clamp(2.7rem, 8vw, 6rem);
+    max-width: 14ch;
+    margin-bottom: 28px;
+  }
+  .hero h1 .line2 { color: var(--blue-electric); }
+  .hero .sub {
+    font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+    color: #c3cdf0; max-width: 620px; margin-bottom: 40px; font-weight: 400;
+  }
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; }
+  .hero-stats { display: flex; flex-wrap: wrap; gap: 36px; margin-top: 64px; padding-top: 36px; border-top: 1px solid rgba(255,255,255,0.12); }
+  .hero-stats .stat .n { font-family: 'Space Grotesk', sans-serif; font-size: 1.9rem; font-weight: 700; color: #fff; }
+  .hero-stats .stat .l { font-size: 0.82rem; color: #9fadd8; letter-spacing: 0.02em; }
+
+  /* ============================================================
+     WHY NOW — cards
+     ============================================================ */
+  .why { background: var(--bg-soft); }
+  .cards-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .card {
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg);
+    padding: 36px 30px; transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s;
+  }
+  .card:hover { transform: translateY(-6px); box-shadow: var(--shadow); border-color: var(--blue-electric); }
+  .card .knum {
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem;
+    color: var(--blue); border: 1.5px solid var(--line); width: 46px; height: 46px;
+    display: flex; align-items: center; justify-content: center; border-radius: 12px; margin-bottom: 22px;
+  }
+  .card h3 { font-size: 1.3rem; margin-bottom: 12px; }
+  .card p { color: var(--ink-soft); font-size: 0.98rem; }
+
+  /* ============================================================
+     THE SHIFT — before / after
+     ============================================================ */
+  .shift { background: #fff; }
+  .ba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; position: relative; }
+  .ba-col { border-radius: var(--radius-lg); padding: 36px 32px; }
+  .ba-before { background: var(--bg-soft); border: 1px solid var(--line); }
+  .ba-after {
+    background: linear-gradient(160deg, var(--blue) 0%, var(--blue-deep) 100%);
+    color: #fff; box-shadow: var(--shadow);
+  }
+  .ba-tag { display: inline-block; font-family: 'Space Grotesk', sans-serif; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; font-size: 0.72rem; padding: 6px 14px; border-radius: 100px; margin-bottom: 20px; }
+  .ba-before .ba-tag { background: var(--bg-tint); color: var(--ink-soft); }
+  .ba-after .ba-tag { background: rgba(255,255,255,0.18); color: #fff; }
+  .ba-col h3 { font-size: 1.5rem; margin-bottom: 22px; }
+  .ba-after h3 { color: #fff; }
+  .ba-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+  .ba-list li { display: flex; gap: 12px; font-size: 0.98rem; align-items: flex-start; }
+  .ba-list li .ic { flex: none; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; margin-top: 2px; font-size: 0.7rem; font-weight: 700; }
+  .ba-before .ba-list li { color: var(--ink-soft); }
+  .ba-before .ic { background: #e2e8f7; color: #9aa3c4; }
+  .ba-after .ba-list li { color: #eaf0ff; }
+  .ba-after .ic { background: rgba(255,255,255,0.22); color: #fff; }
+  .ba-arrow {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 56px; height: 56px; border-radius: 50%; background: #fff; border: 1px solid var(--line);
+    display: grid; place-items: center; box-shadow: var(--shadow-soft); z-index: 3; color: var(--blue); font-size: 1.4rem;
+  }
+  .ba-arrow.mobile { display: none; }
+
+  /* ============================================================
+     NOT — what ALP is not
+     ============================================================ */
+  .not { background: var(--navy); color: #fff; }
+  .not::before {
+    content:""; position:absolute; inset:0;
+    background: radial-gradient(800px 400px at 90% 0%, rgba(61,139,255,0.22), transparent 60%);
+    pointer-events:none;
+  }
+  .not .wrap { position: relative; z-index: 2; }
+  .not .section-head h2 { color: #fff; }
+  .not .section-head .sub { color: #b9c4ea; }
+  .not-grid { display: grid; gap: 14px; }
+  .not-row {
+    display: grid; grid-template-columns: 280px 1fr; gap: 28px; align-items: center;
+    padding: 24px 28px; border-radius: var(--radius);
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .not-row:hover { background: rgba(255,255,255,0.07); border-color: rgba(61,139,255,0.4); }
+  .not-row .label { display: flex; align-items: center; gap: 14px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.12rem; }
+  .not-row .label .x { flex: none; width: 26px; height: 26px; border-radius: 8px; background: rgba(61,139,255,0.18); color: var(--blue-electric); display: grid; place-items: center; font-size: 0.9rem; }
+  .not-row .why { color: #b9c4ea; font-size: 0.98rem; background: none; padding: 0; }
+
+  /* ============================================================
+     TRAIN — four pillars
+     ============================================================ */
+  .train { background: var(--bg-soft); }
+  .anchor-band {
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg);
+    padding: clamp(32px, 5vw, 56px); margin-bottom: 48px; box-shadow: var(--shadow-soft);
+    border-left: 5px solid var(--blue);
+  }
+  .anchor-band h3 { font-size: clamp(1.5rem, 3vw, 2.2rem); margin-bottom: 18px; max-width: 18ch; }
+  .anchor-band p { color: var(--ink-soft); max-width: 760px; font-size: 1.05rem; }
+  .pillars { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .pillar { background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 32px; transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease); }
+  .pillar:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+  .pillar h4 { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; }
+  .pillar h4 .pi { width: 38px; height: 38px; border-radius: 10px; background: var(--bg-tint); color: var(--blue); display: grid; place-items: center; font-size: 1.1rem; }
+  .pillar p { color: var(--ink-soft); font-size: 0.97rem; }
+
+  .vs { margin-top: 48px; }
+  .vs h4 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin-bottom: 20px; color: var(--ink); text-align: center; }
+  .vs-rows { display: flex; flex-direction: column; gap: 12px; }
+  .vs-row { display: grid; grid-template-columns: 1fr auto 1fr; gap: 18px; align-items: center; }
+  .vs-cell { padding: 18px 22px; border-radius: var(--radius); font-size: 0.95rem; }
+  .vs-cell.vibe { background: #fff; border: 1px dashed #c7d2ee; color: var(--ink-soft); }
+  .vs-cell.alp { background: linear-gradient(160deg, var(--blue) 0%, var(--blue-deep) 100%); color: #fff; font-weight: 500; }
+  .vs-mid { width: 36px; height: 36px; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; font-size: 1rem; flex: none; }
+
+  /* ============================================================
+     CERT WALL — centrepiece
+     ============================================================ */
+  .certs { background: #fff; }
+  .cert-wall { display: flex; flex-direction: column; gap: 20px; }
+  .layer {
+    display: grid; grid-template-columns: 220px 1fr; gap: 30px;
+    border: 1px solid var(--line); border-radius: var(--radius-lg);
+    padding: 32px; position: relative; overflow: hidden;
+    transition: box-shadow 0.35s var(--ease), transform 0.35s var(--ease), border-color 0.35s;
+    background: linear-gradient(180deg, #fff, var(--bg-soft));
+  }
+  .layer:hover { box-shadow: var(--shadow); transform: translateY(-4px); border-color: var(--blue-electric); }
+  .layer-head { position: relative; }
+  .layer-num {
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+    font-size: clamp(2.6rem, 6vw, 3.6rem); line-height: 1;
+    background: linear-gradient(140deg, var(--blue), var(--blue-electric));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .layer-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.3rem; margin: 6px 0 8px; }
+  .layer-desc { font-size: 0.9rem; color: var(--ink-soft); }
+  .chips { display: flex; flex-wrap: wrap; gap: 12px; align-content: flex-start; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: #fff; border: 1px solid var(--line); border-radius: 14px;
+    padding: 12px 16px; font-size: 0.9rem; font-weight: 500; color: var(--ink);
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+  }
+  .chip:hover { border-color: var(--blue); transform: translateY(-2px); box-shadow: var(--shadow-soft); }
+  .chip .badge { width: 34px; height: 34px; border-radius: 9px; background: #fff; border: 1px solid var(--line); color: var(--blue); display: grid; place-items: center; font-weight: 700; font-size: 0; font-family: 'Space Grotesk', sans-serif; flex: none; overflow: hidden; }
+  .chip .badge img { width: 100%; height: 100%; object-fit: contain; padding: 5px; }
+  .chip .badge.noimg { font-size: 0.85rem; background: var(--bg-tint); border-color: transparent; }
+  .chip .meta { display: flex; flex-direction: column; line-height: 1.25; }
+  .chip .meta small { color: var(--ink-faint); font-size: 0.74rem; font-weight: 400; }
+  .cert-note { margin-top: 26px; font-size: 0.85rem; color: var(--ink-faint); border-left: 3px solid var(--line); padding-left: 14px; }
+
+  /* ============================================================
+     HOW — three refusals
+     ============================================================ */
+  .how { background: var(--bg-soft); }
+  .refusals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .refusal {
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg);
+    padding: 38px 32px; transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+    position: relative;
+  }
+  .refusal:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+  .refusal .rn { font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: var(--blue-electric); font-size: 0.9rem; letter-spacing: 0.05em; margin-bottom: 16px; }
+  .refusal h3 { font-size: 1.35rem; margin-bottom: 14px; }
+  .refusal p { color: var(--ink-soft); font-size: 0.97rem; }
+
+  /* ============================================================
+     JOURNEY — five phases
+     ============================================================ */
+  .journey { background: var(--navy); color: #fff; }
+  .journey::before {
+    content:""; position:absolute; inset:0;
+    background: radial-gradient(900px 500px at 10% 110%, rgba(31,95,255,0.25), transparent 55%);
+    pointer-events:none;
+  }
+  .journey .wrap { position: relative; z-index: 2; }
+  .journey .section-head h2 { color: #fff; }
+  .journey .section-head .sub { color: #b9c4ea; }
+  .phases { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+  .phase {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius); padding: 26px 22px;
+    transition: background 0.3s, border-color 0.3s, transform 0.3s var(--ease);
+  }
+  .phase:hover { background: rgba(255,255,255,0.08); border-color: var(--blue-electric); transform: translateY(-5px); }
+  .phase .pn { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.6rem; color: var(--blue-electric); margin-bottom: 14px; }
+  .phase h4 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin-bottom: 10px; }
+  .phase p { font-size: 0.88rem; color: #aeb9e0; }
+
+  /* ============================================================
+     CLOSING
+     ============================================================ */
+  .closing {
+    background:
+      radial-gradient(900px 500px at 50% -20%, rgba(61,139,255,0.4), transparent 60%),
+      linear-gradient(160deg, var(--blue) 0%, var(--blue-deep) 100%);
+    color: #fff; text-align: center;
+  }
+  .closing h2 { font-size: clamp(2.1rem, 5.5vw, 4rem); max-width: 16ch; margin: 18px auto 24px; }
+  .closing .sub { color: #dce5ff; max-width: 600px; margin: 0 auto 40px; font-size: 1.1rem; }
+  .closing .hero-ctas { justify-content: center; }
+
+  /* ============================================================
+     FOOTER
+     ============================================================ */
+  footer { background: var(--navy); color: #fff; padding: 70px 0 40px; }
+  .foot-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .foot-brand { max-width: 360px; }
+  .foot-brand .logo { color: #fff; margin-bottom: 16px; }
+  .foot-brand p { color: #9fadd8; font-size: 0.95rem; }
+  .foot-cols { display: flex; gap: 70px; flex-wrap: wrap; }
+  .foot-col h5 { font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.12em; color: #7e8cba; margin-bottom: 16px; }
+  .foot-col a { display: block; color: #c3cce6; font-size: 0.95rem; padding: 6px 0; transition: color 0.2s; }
+  .foot-col a:hover { color: var(--blue-electric); }
+  .foot-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; padding-top: 30px; color: #7e8cba; font-size: 0.85rem; }
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width: 980px) {
+    .cards-3, .refusals { grid-template-columns: 1fr; }
+    .phases { grid-template-columns: repeat(2, 1fr); }
+    .not-row { grid-template-columns: 1fr; gap: 10px; }
+    .not-row .label { font-size: 1.05rem; }
+    .layer { grid-template-columns: 1fr; gap: 18px; padding: 26px 22px; }
+    .layer-head { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; }
+    .layer-num { font-size: 2.4rem; }
+    .layer-name { margin: 0; flex: 1 1 auto; }
+    .layer-desc { flex: 1 1 100%; width: 100%; margin-top: 2px; }
+  }
+
+  @media (max-width: 760px) {
+    .nav-links { display: none; }
+    .nav-cta .btn:not(.hamburger) { display: none; }
+    .hamburger { display: flex; }
+    /* Apply CTA stays visible at all sizes via mobile menu trigger + sticky apply */
+    .nav-cta .apply-mini { display: inline-flex; }
+
+    .pillars { grid-template-columns: 1fr; }
+    .vs-row { grid-template-columns: 1fr; gap: 8px; }
+    .vs-mid { transform: rotate(90deg); margin: 0 auto; }
+
+    /* Before/After stacks, Before on top, animated arrow between */
+    .ba-grid { grid-template-columns: 1fr; gap: 44px; }
+    .ba-arrow { display: none; }
+    .ba-arrow.mobile {
+      display: grid; position: absolute; left: 50%; top: auto;
+      bottom: calc(50% - 4px); transform: translate(-50%, 50%) rotate(90deg);
+      animation: bob 1.6s ease-in-out infinite;
+    }
+    @keyframes bob { 0%,100%{ transform: translate(-50%, 50%) rotate(90deg);} 50%{ transform: translate(-50%, 30%) rotate(90deg);} }
+  }
+
+  @media (max-width: 480px) {
+    .phases { grid-template-columns: 1fr; }
+    .hero-stats { gap: 24px; }
+    .wrap { padding: 0 18px; }
+    .chips { flex-direction: column; }
+    .chip { width: 100%; }
+    .layer-num { font-size: 2.1rem; }
+  }
+
+  /* show apply-mini only on small screens */
+  .apply-mini { display: none; }
+
+  /* ============================================================
+     ✦ EYE-CATCHING ENHANCEMENTS ✦
+     ============================================================ */
+
+  /* ---- Richer reveal (applies site-wide) ---- */
+  .reveal { transform: translateY(34px) scale(0.985); filter: blur(6px); }
+  .reveal.in { filter: blur(0); }
+  .reveal-l { opacity: 0; transform: translateX(-46px); filter: blur(5px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease), filter 0.8s var(--ease); }
+  .reveal-l.in { opacity: 1; transform: none; filter: blur(0); }
+  .reveal-r { opacity: 0; transform: translateX(46px); filter: blur(5px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease), filter 0.8s var(--ease); }
+  .reveal-r.in { opacity: 1; transform: none; filter: blur(0); }
+
+  /* ---- Scroll progress bar ---- */
+  .scroll-progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 200; background: transparent; pointer-events: none; }
+  .scroll-progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--blue), var(--blue-electric), #8ab8ff); box-shadow: 0 0 12px rgba(61,139,255,0.7); transition: width 0.08s linear; }
+
+  /* ---- Animated gradient shimmer text ---- */
+  .shimmer {
+    background: linear-gradient(100deg, var(--blue-electric) 0%, #ffffff 25%, var(--blue-electric) 50%, #cfe0ff 75%, var(--blue-electric) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+    animation: shimmer 5s linear infinite;
+  }
+  @keyframes shimmer { to { background-position: 200% center; } }
+
+  /* ---- Floating aurora orbs ---- */
+  .orbs { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; }
+  .orb { position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.55; will-change: transform; }
+  .orb.o1 { width: 420px; height: 420px; background: radial-gradient(circle, #2b6bff, transparent 70%); top: -120px; right: -80px; animation: float1 14s ease-in-out infinite; }
+  .orb.o2 { width: 360px; height: 360px; background: radial-gradient(circle, #3d8bff, transparent 70%); bottom: -140px; left: -60px; animation: float2 18s ease-in-out infinite; }
+  .orb.o3 { width: 280px; height: 280px; background: radial-gradient(circle, #6f3dff, transparent 70%); top: 40%; left: 55%; opacity: 0.35; animation: float3 22s ease-in-out infinite; }
+  @keyframes float1 { 0%,100%{ transform: translate(0,0) scale(1);} 50%{ transform: translate(-40px,50px) scale(1.12);} }
+  @keyframes float2 { 0%,100%{ transform: translate(0,0) scale(1);} 50%{ transform: translate(50px,-40px) scale(1.1);} }
+  @keyframes float3 { 0%,100%{ transform: translate(0,0) scale(1);} 50%{ transform: translate(-60px,-30px) scale(0.9);} }
+
+  /* Soft decorative blobs for light sections */
+  .blob { position: absolute; border-radius: 50%; filter: blur(70px); pointer-events: none; z-index: 0; opacity: 0.5; }
+  .blob.b-blue { background: radial-gradient(circle, rgba(61,139,255,0.4), transparent 70%); }
+  .why, .train, .how, .certs, .shift { position: relative; overflow: hidden; }
+  .why .wrap, .train .wrap, .how .wrap, .certs .wrap, .shift .wrap { position: relative; z-index: 2; }
+
+  /* ---- Cursor spotlight on interactive cards ---- */
+  .spot { position: relative; }
+  .spot::before {
+    content: ""; position: absolute; inset: 0; border-radius: inherit;
+    background: radial-gradient(280px circle at var(--mx, 50%) var(--my, 0%), rgba(61,139,255,0.16), transparent 60%);
+    opacity: 0; transition: opacity 0.35s; pointer-events: none; z-index: 1;
+  }
+  .spot:hover::before { opacity: 1; }
+  .spot > * { position: relative; z-index: 2; }
+
+  /* 3D tilt baseline */
+  .tilt { transform-style: preserve-3d; transition: transform 0.18s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s; }
+
+  /* ---- Certification marquee ---- */
+  .marquee-band { background: #fff; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 26px 0; overflow: hidden; }
+  .marquee-label { text-align: center; font-family: 'Space Grotesk', sans-serif; text-transform: uppercase; letter-spacing: 0.22em; font-size: 0.72rem; color: var(--ink-faint); margin-bottom: 18px; }
+  .marquee { display: flex; gap: 18px; width: max-content; animation: marquee 32s linear infinite; }
+  .marquee-band:hover .marquee { animation-play-state: paused; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .m-item {
+    display: inline-flex; align-items: center; gap: 10px; flex: none;
+    padding: 12px 22px; border: 1px solid var(--line); border-radius: 100px;
+    font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 0.92rem; color: var(--ink-soft);
+    background: var(--bg-soft); transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+  .m-item:hover { color: var(--blue); border-color: var(--blue-electric); background: #fff; }
+  .m-item .md { width: 7px; height: 7px; border-radius: 50%; background: var(--blue-electric); }
+  .m-logo { width: 24px; height: 24px; object-fit: contain; border-radius: 5px; flex: none; }
+
+  /* ---- Animated layer progress accent ---- */
+  .layer::after {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+    background: linear-gradient(var(--blue), var(--blue-electric));
+    transform: scaleY(0); transform-origin: top; transition: transform 0.6s var(--ease);
+  }
+  .layer.in::after { transform: scaleY(1); }
+
+  /* ---- Scroll-spy active nav ---- */
+  .nav-links a.navlink::after {
+    content: ""; position: absolute; left: 0; right: 100%; bottom: -6px; height: 2px;
+    background: var(--blue); border-radius: 2px; transition: right 0.3s var(--ease);
+  }
+  .nav-links a.navlink.active { color: var(--blue); }
+  .nav-links a.navlink.active::after { right: 0; }
+
+  /* ---- Back to top ---- */
+  .to-top {
+    position: fixed; bottom: 26px; right: 26px; z-index: 90;
+    width: 50px; height: 50px; border-radius: 50%; border: none; cursor: pointer;
+    background: var(--blue); color: #fff; font-size: 1.2rem; box-shadow: 0 12px 28px -10px rgba(31,95,255,0.7);
+    display: grid; place-items: center; opacity: 0; transform: translateY(20px) scale(0.8); pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s var(--ease), background 0.25s;
+  }
+  .to-top.show { opacity: 1; transform: none; pointer-events: auto; }
+  .to-top:hover { background: var(--blue-deep); transform: translateY(-3px); }
+
+  /* ---- Pillar / phase entrance pop ---- */
+  .pillar .pi, .card .knum, .refusal .rn, .phase .pn { transition: transform 0.35s var(--ease); }
+  .pillar:hover .pi, .card:hover .knum, .phase:hover .pn { transform: scale(1.12) rotate(-4deg); }
+
+  /* Animated underline shimmer for section headings on reveal */
+  .section-head h2 .uline { position: relative; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .orb, .marquee, .shimmer, .blob { animation: none !important; }
+    .reveal, .reveal-l, .reveal-r { filter: none; }
+  }
+  @media (max-width: 760px) {
+    .orb { opacity: 0.4; }
+    .to-top { bottom: 18px; right: 18px; width: 44px; height: 44px; }
+  }
+
+  /* ============================================================
+     ✦ CONVERSION / CONFIDENCE SECTIONS ✦
+     ============================================================ */
+
+  /* ---- "You qualify" reassurance ---- */
+  .qualify { background: #fff; position: relative; overflow: hidden; }
+  .qualify .wrap { position: relative; z-index: 2; }
+  .qualify-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .q-item {
+    display: flex; gap: 16px; align-items: flex-start;
+    background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 26px 24px; transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s;
+  }
+  .q-item:hover { transform: translateY(-5px); box-shadow: var(--shadow); border-color: var(--blue-electric); }
+  .q-item .qic {
+    flex: none; width: 46px; height: 46px; border-radius: 12px;
+    background: linear-gradient(140deg, var(--blue), var(--blue-electric)); color: #fff;
+    display: grid; place-items: center; font-size: 1.3rem; box-shadow: 0 8px 18px -8px rgba(31,95,255,0.7);
+  }
+  .q-item h4 { font-family: 'Space Grotesk', sans-serif; font-size: 1.08rem; margin-bottom: 6px; }
+  .q-item p { font-size: 0.92rem; color: var(--ink-soft); }
+  .qualify-line {
+    margin-top: 40px; text-align: center; font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.3rem, 3vw, 2rem); font-weight: 600; max-width: 22ch; margin-left: auto; margin-right: auto;
+    line-height: 1.25;
+  }
+  .qualify-line .accent { color: var(--blue); }
+
+  /* ---- FAQ accordion ---- */
+  .faq { background: var(--bg-soft); }
+  .faq-list { max-width: 820px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+  .faq-item { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; transition: border-color 0.3s, box-shadow 0.3s; }
+  .faq-item.open { border-color: var(--blue-electric); box-shadow: var(--shadow-soft); }
+  .faq-q {
+    width: 100%; text-align: left; background: none; border: none; cursor: pointer;
+    padding: 22px 26px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.08rem; color: var(--ink);
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  }
+  .faq-q .qx { flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--bg-tint); color: var(--blue); display: grid; place-items: center; font-size: 1.1rem; transition: transform 0.35s var(--ease), background 0.3s, color 0.3s; }
+  .faq-item.open .faq-q .qx { transform: rotate(45deg); background: var(--blue); color: #fff; }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s var(--ease); }
+  .faq-a-inner { padding: 0 26px 24px; color: var(--ink-soft); font-size: 0.98rem; }
+
+  /* ---- Apply form ---- */
+  .apply {
+    background:
+      radial-gradient(800px 500px at 85% -10%, rgba(61,139,255,0.3), transparent 60%),
+      linear-gradient(160deg, var(--navy) 0%, var(--navy-2) 100%);
+    color: #fff; position: relative; overflow: hidden;
+  }
+  .apply .wrap { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+  .apply-pitch .eyebrow { color: var(--blue-electric); }
+  .apply-pitch h2 { font-size: clamp(2rem, 4.5vw, 3.2rem); color: #fff; margin: 14px 0 18px; }
+  .apply-pitch p { color: #c3cdf0; font-size: 1.05rem; max-width: 440px; }
+  .apply-assure { list-style: none; margin-top: 26px; display: flex; flex-direction: column; gap: 12px; }
+  .apply-assure li { display: flex; gap: 12px; align-items: center; color: #dbe4ff; font-size: 0.98rem; }
+  .apply-assure .ck { flex: none; width: 24px; height: 24px; border-radius: 50%; background: rgba(61,139,255,0.25); color: var(--blue-electric); display: grid; place-items: center; font-size: 0.8rem; font-weight: 700; }
+  .seats { display: inline-flex; align-items: center; gap: 10px; margin-top: 28px; padding: 9px 16px; border-radius: 100px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16); font-size: 0.86rem; color: #cdd9ff; font-family: 'Space Grotesk', sans-serif; }
+  .seats .pulse { width: 8px; height: 8px; border-radius: 50%; background: #5bd6a0; box-shadow: 0 0 0 0 rgba(91,214,160,0.7); animation: pulse 2.2s infinite; }
+
+  .form-card { background: #fff; border-radius: var(--radius-lg); padding: 36px; box-shadow: 0 30px 70px -30px rgba(0,0,0,0.5); color: var(--ink); }
+  .form-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; margin-bottom: 6px; }
+  .form-card .fc-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 22px; }
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--ink-soft); margin-bottom: 7px; font-family: 'Space Grotesk', sans-serif; }
+  .field input, .field select {
+    width: 100%; padding: 13px 15px; border: 1.5px solid var(--line); border-radius: 12px;
+    font-family: 'Inter', sans-serif; font-size: 0.96rem; color: var(--ink); background: var(--bg-soft);
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  }
+  .field input:focus, .field select:focus { outline: none; border-color: var(--blue); background: #fff; box-shadow: 0 0 0 4px rgba(31,95,255,0.12); }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .form-card .btn { width: 100%; justify-content: center; margin-top: 8px; font-size: 1.02rem; padding: 1em 1.5em; }
+  .form-note { text-align: center; font-size: 0.78rem; color: var(--ink-faint); margin-top: 14px; }
+  .form-success { display: none; text-align: center; padding: 30px 10px; }
+  .form-success.show { display: block; animation: popIn 0.5s var(--ease); }
+  @keyframes popIn { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: none; } }
+  .form-success .tick { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(140deg, var(--blue), var(--blue-electric)); color: #fff; display: grid; place-items: center; font-size: 2rem; margin: 0 auto 18px; box-shadow: 0 14px 30px -12px rgba(31,95,255,0.7); }
+  .form-success h3 { font-size: 1.4rem; margin-bottom: 8px; }
+  .form-success p { color: var(--ink-soft); font-size: 0.95rem; }
+
+  @media (max-width: 980px) {
+    .qualify-grid { grid-template-columns: 1fr; }
+    .apply .wrap { grid-template-columns: 1fr; gap: 36px; }
+  }
+  @media (max-width: 480px) {
+    .field-row { grid-template-columns: 1fr; }
+    .form-card { padding: 26px 22px; }
+  }
+
+  /* ============================================================
+     ✦ VALUE STACK · STICKY CTA · COHORT URGENCY ✦
+     ============================================================ */
+
+  /* ---- Everything included (value stack) ---- */
+  .value { background: #fff; position: relative; overflow: hidden; }
+  .value .wrap { position: relative; z-index: 2; }
+  .value-card {
+    background: linear-gradient(165deg, var(--bg-soft), #fff);
+    border: 1px solid var(--line); border-radius: var(--radius-lg);
+    padding: clamp(28px, 4vw, 48px); box-shadow: var(--shadow-soft);
+  }
+  .value-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 36px; }
+  .value-grid li { list-style: none; display: flex; gap: 14px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid var(--line-soft); }
+  .value-grid li .vk { flex: none; width: 26px; height: 26px; border-radius: 8px; background: linear-gradient(140deg, var(--blue), var(--blue-electric)); color: #fff; display: grid; place-items: center; font-size: 0.8rem; font-weight: 700; margin-top: 2px; }
+  .value-grid li b { font-family: 'Space Grotesk', sans-serif; font-weight: 600; display: block; font-size: 1rem; }
+  .value-grid li span.vd { color: var(--ink-soft); font-size: 0.9rem; }
+  .value-foot { margin-top: 30px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; padding-top: 28px; border-top: 2px dashed var(--line); }
+  .value-foot .vf-line { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.15rem; max-width: 22ch; }
+  .value-foot .vf-line .accent { color: var(--blue); }
+
+  /* ---- Sticky bottom CTA bar ---- */
+  .sticky-cta {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 95;
+    transform: translateY(120%); transition: transform 0.45s var(--ease);
+    background: rgba(6,16,38,0.94); backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    border-top: 1px solid rgba(255,255,255,0.14); color: #fff;
+    box-shadow: 0 -16px 40px -20px rgba(0,0,0,0.5);
+  }
+  .sticky-cta.show { transform: none; }
+  .sticky-cta .sc-inner { max-width: var(--maxw); margin: 0 auto; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+  .sticky-cta .sc-msg { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1rem; line-height: 1.2; }
+  .sticky-cta .sc-msg small { display: block; color: #9fadd8; font-weight: 400; font-size: 0.78rem; margin-top: 2px; }
+  .sticky-cta .sc-msg small b { color: var(--blue-electric); font-weight: 600; }
+  .sticky-cta .sc-acts { display: flex; gap: 10px; align-items: center; flex: none; }
+  .sticky-cta .btn { padding: 0.7em 1.3em; font-size: 0.92rem; }
+  .wa-btn { display: inline-flex; align-items: center; gap: 8px; background: #25D366; color: #06241a; font-weight: 600; padding: 0.7em 1.2em; border-radius: 100px; font-family: 'Space Grotesk', sans-serif; font-size: 0.92rem; transition: transform 0.25s var(--ease), filter 0.25s; }
+  .wa-btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
+
+  .to-top.lifted { bottom: 90px; }
+
+  /* ---- Cohort / countdown ---- */
+  .cohort-strip { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+  .count-box { display: flex; gap: 8px; }
+  .count-unit { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16); border-radius: 12px; padding: 10px 14px; text-align: center; min-width: 58px; }
+  .count-unit .cnum { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.5rem; color: #fff; line-height: 1; }
+  .count-unit .clab { font-size: 0.64rem; text-transform: uppercase; letter-spacing: 0.12em; color: #9fadd8; margin-top: 4px; }
+  .count-title { font-size: 0.82rem; color: #cdd9ff; font-family: 'Space Grotesk', sans-serif; letter-spacing: 0.04em; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; width: 100%; }
+
+  @media (max-width: 980px) {
+    .value-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 760px) {
+    .sticky-cta .sc-msg { display: none; }
+    .sticky-cta .sc-inner { justify-content: center; padding: 10px 16px; }
+    .sticky-cta .sc-acts { width: 100%; }
+    .sticky-cta .btn { flex: 1; justify-content: center; }
+    .wa-btn { flex: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Scroll progress -->
+<div class="scroll-progress"><div class="scroll-progress-bar" id="scrollBar"></div></div>
+
+<!-- ===================== HEADER ===================== -->
+<header id="header">
+  <div class="wrap nav">
+    <a href="#top" class="logo">Raghu's&nbsp;ALP<span class="dot">.</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a class="navlink" href="#why">Why now</a>
+      <a class="navlink" href="#train">What we train</a>
+      <a class="navlink" href="#certs">Certifications</a>
+      <a class="navlink" href="#how">How</a>
+      <a class="navlink" href="#journey">The journey</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-primary apply-mini" href="#apply">Apply</a>
+      <a class="btn btn-primary" href="#apply">Apply to the next cohort</a>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="overlay" id="overlay"></div>
+<aside class="mobile-menu" id="mobileMenu">
+  <a class="navlink" href="#why">Why now</a>
+  <a class="navlink" href="#train">What we train</a>
+  <a class="navlink" href="#certs">Certifications</a>
+  <a class="navlink" href="#how">How we do it</a>
+  <a class="navlink" href="#journey">The journey</a>
+  <a class="btn btn-primary" href="#apply">Apply to the next cohort</a>
+</aside>
+
+<span id="top"></span>
+
+<!-- ===================== HERO (Section 1) ===================== -->
+<section class="hero">
+  <div class="orbs">
+    <span class="orb o1"></span>
+    <span class="orb o2"></span>
+    <span class="orb o3"></span>
+  </div>
+  <div class="wrap">
+    <div class="hero-eyebrow reveal"><span class="pulse"></span> A Raghu Engineering College programme · for students who refuse to graduate average</div>
+    <h1 class="reveal d1">We don't make <span class="strike">vibe coders</span>.<br><span class="line2 shimmer">We make engineers.</span></h1>
+    <p class="sub reveal d2">Anyone can paste a prompt and ship something half-working. ALP builds the other thing — engineers trained on a concrete AI stack, real domain context, real system design and a deep specialisation, certified by the bodies that companies actually screen for.</p>
+    <div class="hero-ctas reveal d3">
+      <a class="btn btn-primary" href="#apply">Apply to the next cohort <span class="arrow">→</span></a>
+      <a class="btn btn-outline-light" href="#train">See what we train</a>
+    </div>
+    <div class="hero-stats reveal d4">
+      <div class="stat"><div class="n" data-count="4">0</div><div class="l">Stacked credential layers</div></div>
+      <div class="stat"><div class="n" data-count="5">0</div><div class="l">Stream specialisations</div></div>
+      <div class="stat"><div class="n" data-count="1">0</div><div class="l">Ladder, climbed in public</div></div>
+      <div class="stat"><div class="n" data-count="0">0</div><div class="l">Vibe coders made</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CERT MARQUEE ===================== -->
+<div class="marquee-band">
+  <div class="marquee-label">Certified against the bodies that actually hire</div>
+  <div class="marquee" id="marquee">
+    <span class="m-item"><img class="m-logo" loading="lazy" alt="CodeChef" src="https://www.google.com/s2/favicons?domain=codechef.com&sz=128" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'md'}))">CodeChef</span>
+    <span class="m-item"><img class="m-logo" loading="lazy" alt="GitHub" src="https://www.google.com/s2/favicons?domain=github.com&sz=128" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'md'}))">GitHub</span>
+    <span class="m-item"><img class="m-logo" loading="lazy" alt="HackerRank" src="https://www.google.com/s2/favicons?domain=hackerrank.com&sz=128" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'md'}))">HackerRank</span>
+    <span class="m-item"><img class="m-logo" loading="lazy" alt="Anthropic" src="https://www.google.com/s2/favicons?domain=anthropic.com&sz=128" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'md'}))">Anthropic</span>
+    <span class="m-item"><img class="m-logo" loading="lazy" alt="DeepLearning.AI" src="https://www.google.com/s2/favicons?domain=deeplearning.ai&sz=128" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'md'}))">DeepLearning.AI</span>
+    <span class="m-item"><img class="m-logo" loading="lazy" alt="Cursor" src="https://www.google.com/s2/favicons?domain=cursor.com&sz=128" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'md'}))">Cursor</span>
+    <span class="m-item"><img class="m-logo" loading="lazy" alt="GitHub Copilot" src="https://www.google.com/s2/favicons?domain=github.com&sz=128" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'md'}))">GitHub Copilot</span>
+    <span class="m-item"><img class="m-logo" loading="lazy" alt="AWS" src="https://www.google.com/s2/favicons?domain=aws.amazon.com&sz=128" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'md'}))">AWS</span>
+    <span class="m-item"><img class="m-logo" loading="lazy" alt="Microsoft Azure" src="https://www.google.com/s2/favicons?domain=azure.microsoft.com&sz=128" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'md'}))">Microsoft Azure</span>
+    <span class="m-item"><img class="m-logo" loading="lazy" alt="MongoDB" src="https://www.google.com/s2/favicons?domain=mongodb.com&sz=128" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'md'}))">MongoDB</span>
+    <span class="m-item"><img class="m-logo" loading="lazy" alt="Google" src="https://www.google.com/s2/favicons?domain=google.com&sz=128" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'md'}))">Google</span>
+    <span class="m-item"><img class="m-logo" loading="lazy" alt="CompTIA" src="https://www.google.com/s2/favicons?domain=comptia.org&sz=128" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'md'}))">CompTIA</span>
+    <span class="m-item"><img class="m-logo" loading="lazy" alt="SHRM" src="https://www.google.com/s2/favicons?domain=shrm.org&sz=128" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'md'}))">SHRM</span>
+    <span class="m-item"><img class="m-logo" loading="lazy" alt="NISM" src="https://www.google.com/s2/favicons?domain=nism.ac.in&sz=128" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'md'}))">NISM</span>
+    <span class="m-item"><img class="m-logo" loading="lazy" alt="HIMSS" src="https://www.google.com/s2/favicons?domain=himss.org&sz=128" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'md'}))">HIMSS</span>
+    <span class="m-item"><img class="m-logo" loading="lazy" alt="Shopify" src="https://www.google.com/s2/favicons?domain=shopify.com&sz=128" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'md'}))">Shopify</span>
+  </div>
+</div>
+
+<!-- ===================== WHY NOW (Section 2) ===================== -->
+<section class="why pad" id="why">
+  <span class="blob b-blue" style="width:340px;height:340px;top:-60px;right:-80px;"></span>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Why now</div>
+      <h2>The career you were promised is no longer the career being hired for.</h2>
+      <p class="sub">Three shifts are rewriting what it takes to walk out of college with a real job. Most syllabi haven't caught up. You don't have to wait for them.</p>
+    </div>
+    <div class="cards-3">
+      <div class="card spot tilt reveal d1">
+        <div class="knum">01</div>
+        <h3>AI changed what "engineer" means</h3>
+        <p>The graduate companies want now ships in a day what older grads shipped in a week. AI fluency isn't a bonus skill — it's the new baseline.</p>
+      </div>
+      <div class="card spot tilt reveal d2">
+        <div class="knum">02</div>
+        <h3>Hiring moved earlier</h3>
+        <p>Offers that used to land after graduation now land a full year sooner. If you're waiting until final-year placements, you're already behind.</p>
+      </div>
+      <div class="card spot tilt reveal d3">
+        <div class="knum">03</div>
+        <h3>A degree is no longer proof</h3>
+        <p>Everyone has one. What companies hire on is shipped work, real ratings, real reps — the kind a four-year syllabus never asked you for.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== THE SHIFT — Before/After (Section 3) ===================== -->
+<section class="shift pad" id="shift">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">The shift</div>
+      <h2>Same student. Different graduate.</h2>
+      <p class="sub">What the same person looks like before ALP, and after.</p>
+    </div>
+    <div class="ba-grid">
+      <div class="ba-col ba-before reveal-l">
+        <span class="ba-tag">Before</span>
+        <h3>A degree. A resume. A hope.</h3>
+        <ul class="ba-list">
+          <li><span class="ic">–</span> Heard about AI tools. Never built anything serious with them.</li>
+          <li><span class="ic">–</span> Knows the theory. Has never designed a real system.</li>
+          <li><span class="ic">–</span> Calls themselves "full-stack" with nothing in production.</li>
+          <li><span class="ic">–</span> No certifications. No domain. No specialisation.</li>
+          <li><span class="ic">–</span> Walks into final year sending cold applications, no offer.</li>
+          <li><span class="ic">–</span> Settles for whatever role opens first.</li>
+        </ul>
+      </div>
+      <div class="ba-arrow">→</div>
+      <div class="ba-arrow mobile">→</div>
+      <div class="ba-col ba-after reveal-r">
+        <span class="ba-tag">After ALP</span>
+        <h3>A graduate companies are already chasing.</h3>
+        <ul class="ba-list">
+          <li><span class="ic">✓</span> AI is muscle memory — used as a teammate, not a search bar.</li>
+          <li><span class="ic">✓</span> Designs systems before writing code. Owns trade-offs.</li>
+          <li><span class="ic">✓</span> Picked a specialisation. Went deep. Has the shipped work to prove it.</li>
+          <li><span class="ic">✓</span> Stacked certifications from the bodies that hire.</li>
+          <li><span class="ic">✓</span> Walks into final year with an offer already signed.</li>
+          <li><span class="ic">✓</span> Picks the role. Doesn't get picked for the leftover one.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== WHAT WE ARE NOT (Section 5 of brief, weighted band) ===================== -->
+<section class="not pad" id="not">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow light">Read this twice</div>
+      <h2>What ALP is not.</h2>
+      <p class="sub">Saying clearly what we're not is sharper than saying what we are.</p>
+    </div>
+    <div class="not-grid">
+      <div class="not-row reveal d1">
+        <div class="label"><span class="x">✕</span> A coding bootcamp</div>
+        <div class="why">Bootcamps teach syntax. ALP trains engineers across four layers — code is only the first one.</div>
+      </div>
+      <div class="not-row reveal d1">
+        <div class="label"><span class="x">✕</span> A "learn AI in 6 weeks" course</div>
+        <div class="why">AI fluency is woven through every layer, not crammed into a finishing module.</div>
+      </div>
+      <div class="not-row reveal d2">
+        <div class="label"><span class="x">✕</span> A placement agency</div>
+        <div class="why">ALP equips. Students land. The credential is the leverage — the offer is theirs to earn.</div>
+      </div>
+      <div class="not-row reveal d2">
+        <div class="label"><span class="x">✕</span> A vibe-coder factory</div>
+        <div class="why">Prompting until something works isn't engineering. We train system design, domain depth and trade-off thinking.</div>
+      </div>
+      <div class="not-row reveal d3">
+        <div class="label"><span class="x">✕</span> A watch-and-forget video course</div>
+        <div class="why">You don't watch ALP — you train it. Most of your day is reps you do alongside coaches, not a playlist you binge once and forget.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== WHAT WE TRAIN (Section 4) ===================== -->
+<section class="train pad" id="train">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">What we actually train</div>
+      <h2>Not a prompt monkey. A real engineer who happens to be AI-native.</h2>
+      <p class="sub">Four pillars an ALP graduate is trained on. Each one is something a vibe coder can't fake under interview pressure — and exactly what a hiring manager screens for.</p>
+    </div>
+
+    <div class="anchor-band reveal d1">
+      <h3>A vibe coder ships a demo. An ALP engineer ships a system.</h3>
+      <p>There's a generation of self-taught coders right now who can prompt a chatbot into producing something that runs. That isn't engineering. Engineering is knowing why it runs, what it'll do at scale, where it'll break, and what business problem it actually solves. ALP grads are trained on all four — and certified on the parts that matter.</p>
+    </div>
+
+    <div class="pillars">
+      <div class="pillar spot tilt reveal d1">
+        <h4><span class="pi">◆</span> Concrete AI Stack</h4>
+        <p>Named tools used daily. Claude, Cursor, Antigravity, GitHub Copilot. Prompt engineering, context engineering, agent design. Fluency, not novelty.</p>
+      </div>
+      <div class="pillar spot tilt reveal d2">
+        <h4><span class="pi">◈</span> Domain Depth</h4>
+        <p>You don't ship "an app." You ship into a domain — HR-tech, fintech, healthcare, e-commerce. ALP grads understand the business they're coding for.</p>
+      </div>
+      <div class="pillar spot tilt reveal d1">
+        <h4><span class="pi">▦</span> System Design</h4>
+        <p>Before code, the diagram. Scaling, caching, queues, data models, trade-offs. The interview round that breaks self-taught coders is the one ALP grads ace.</p>
+      </div>
+      <div class="pillar spot tilt reveal d2">
+        <h4><span class="pi">⬡</span> Specialisations</h4>
+        <p>Full-Stack · DevOps + Cloud · Data Engineering · Cybersecurity · AI Engineering. Pick a path. Go deep enough to be hired for it, not around it.</p>
+      </div>
+    </div>
+
+    <div class="vs reveal d2">
+      <h4>Vibe coder &nbsp;vs&nbsp; ALP engineer</h4>
+      <div class="vs-rows">
+        <div class="vs-row">
+          <div class="vs-cell vibe">Prompts until something works.</div>
+          <div class="vs-mid">→</div>
+          <div class="vs-cell alp">Designs the system, then uses AI to build it.</div>
+        </div>
+        <div class="vs-row">
+          <div class="vs-cell vibe">Copies a stack from a YouTube tutorial.</div>
+          <div class="vs-mid">→</div>
+          <div class="vs-cell alp">Picks a specialisation. Goes deep. Owns trade-offs.</div>
+        </div>
+        <div class="vs-row">
+          <div class="vs-cell vibe">No certification. No domain. No proof.</div>
+          <div class="vs-mid">→</div>
+          <div class="vs-cell alp">Stacked, named certifications from real bodies.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CERTIFICATIONS — Four-Layer Cert Wall (Section 5) ===================== -->
+<section class="certs pad" id="certs">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Certified, not self-declared</div>
+      <h2>Four layers. Stacked credentials at every one.</h2>
+      <p class="sub">ALP's curriculum is built as four layers — CS Foundation, AI Stack, Stream Specialisation and Domain Context. A graduate walks out with named, verifiable certifications at each layer. This isn't a credential, it's a stack.</p>
+    </div>
+
+    <div class="cert-wall">
+      <!-- Layer 01 -->
+      <div class="layer spot tilt reveal d1">
+        <div class="layer-head">
+          <div class="layer-num">01</div>
+          <div class="layer-name">CS Foundation</div>
+          <div class="layer-desc">The base every ALP student earns first — code, DSA, version control.</div>
+        </div>
+        <div class="chips">
+          <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=codechef.com&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">CC</span><span class="meta">CodeChef — CCDSAP Advanced<small>DSA · Algorithms</small></span></div>
+          <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=github.com&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">GH</span><span class="meta">GitHub — Foundations<small>Version control</small></span></div>
+          <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=hackerrank.com&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">HR</span><span class="meta">HackerRank — Problem Solving<small>Python · Java</small></span></div>
+        </div>
+      </div>
+      <!-- Layer 02 -->
+      <div class="layer spot tilt reveal d1">
+        <div class="layer-head">
+          <div class="layer-num">02</div>
+          <div class="layer-name">AI Stack</div>
+          <div class="layer-desc">The new universal layer. Every track, every student, every day.</div>
+        </div>
+        <div class="chips">
+          <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=anthropic.com&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">An</span><span class="meta">Anthropic — Claude API<small>Prompt + Context Engineering</small></span></div>
+          <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=deeplearning.ai&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">DL</span><span class="meta">DeepLearning.AI — Andrew Ng<small>Prompt Eng · LLMs</small></span></div>
+          <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=cursor.com&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">Cu</span><span class="meta">Cursor — AI-Led Development<small>Pair-programming certified</small></span></div>
+          <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=github.com&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">Co</span><span class="meta">GitHub Copilot<small>In-IDE AI</small></span></div>
+        </div>
+      </div>
+      <!-- Layer 03 -->
+      <div class="layer spot tilt reveal d2">
+        <div class="layer-head">
+          <div class="layer-num">03</div>
+          <div class="layer-name">Stream Specialisation</div>
+          <div class="layer-desc">Stacked on the specialisation you pick — go deep enough to be hired for it.</div>
+        </div>
+        <div class="chips">
+          <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=aws.amazon.com&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">AW</span><span class="meta">AWS — Cloud Practitioner<small>DevOps stream</small></span></div>
+          <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=azure.microsoft.com&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">Az</span><span class="meta">Microsoft — Azure AZ-900<small>DevOps stream</small></span></div>
+          <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=mongodb.com&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">Mo</span><span class="meta">MongoDB — Associate Dev<small>Full-Stack stream</small></span></div>
+          <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=google.com&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">Go</span><span class="meta">Google — Data Analytics<small>Data Engineering stream</small></span></div>
+          <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=comptia.org&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">C+</span><span class="meta">CompTIA — Security+<small>Cybersecurity stream</small></span></div>
+        </div>
+      </div>
+      <!-- Layer 04 -->
+      <div class="layer spot tilt reveal d2">
+        <div class="layer-head">
+          <div class="layer-num">04</div>
+          <div class="layer-name">Domain Context</div>
+          <div class="layer-desc">Industry credentials for the actual sector you'll be hired into — not just code, business.</div>
+        </div>
+        <div class="chips">
+          <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=shrm.org&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">SH</span><span class="meta">SHRM-CP Essentials<small>HR-tech domain</small></span></div>
+          <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=nism.ac.in&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">Fi</span><span class="meta">NISM Series VIII<small>Fintech domain</small></span></div>
+          <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=himss.org&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">He</span><span class="meta">HIPAA + HL7 basics (HIMSS)<small>Healthcare domain</small></span></div>
+          <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=shopify.com&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">Sh</span><span class="meta">Shopify Partner<small>E-commerce domain</small></span></div>
+        </div>
+      </div>
+    </div>
+    <p class="cert-note reveal">Layer 04 credentials shown are working placeholders — the structure is final, specific bodies may be swapped for partner-issued domain badges.</p>
+  </div>
+</section>
+
+<!-- ===================== HOW WE DO IT — Three refusals (Section 6) ===================== -->
+<section class="how pad" id="how">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">How we do it</div>
+      <h2>Three design choices. Everything else is a consequence.</h2>
+      <p class="sub">The reason ALP works isn't a syllabus. It's these three refusals — the things we won't compromise on, no matter the cohort.</p>
+    </div>
+    <div class="refusals">
+      <div class="refusal spot tilt reveal d1">
+        <div class="rn">REFUSAL 01</div>
+        <h3>One ladder. Climbed in public.</h3>
+        <p>Skill is measured against a single live coding ladder that companies recognise. Where you sit on it decides what's open to you — and the ladder is real, not self-reported.</p>
+      </div>
+      <div class="refusal spot tilt reveal d2">
+        <div class="rn">REFUSAL 02</div>
+        <h3>You train. You don't just listen.</h3>
+        <p>Most of your day isn't lecture. It's reps — solving, designing, building, shipping — alongside coaches who've already climbed the ladder you're on.</p>
+      </div>
+      <div class="refusal spot tilt reveal d3">
+        <div class="rn">REFUSAL 03</div>
+        <h3>Real work, inside real companies.</h3>
+        <p>The last stretch isn't a simulation. You sit inside a product team, ship code that ships to users, get reviewed by working engineers. That's what the resume actually proves.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== THE JOURNEY — Five phases (Section 7) ===================== -->
+<section class="journey pad" id="journey">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow light">The journey</div>
+      <h2>Five phases. One outcome.</h2>
+      <p class="sub">The full ALP arc, without the small print. Every phase exists to move you closer to the day you stop applying for jobs and start choosing between them.</p>
+    </div>
+    <div class="phases">
+      <div class="phase spot tilt reveal d1"><div class="pn">01</div><h4>Foundation</h4><p>Get fluent in the basics: coding, thinking, AI tooling. Fast enough that the rest can land.</p></div>
+      <div class="phase spot tilt reveal d1"><div class="pn">02</div><h4>Build</h4><p>Climb the coding ladder. Internalise the patterns companies actually test for.</p></div>
+      <div class="phase spot tilt reveal d2"><div class="pn">03</div><h4>Specialise</h4><p>Pick the stack. Go deep. Earn the domain context that makes you employable for the role, not around it.</p></div>
+      <div class="phase spot tilt reveal d3"><div class="pn">04</div><h4>Design + AI</h4><p>System design under pressure. AI as a teammate. The two interview rounds vibe coders fail.</p></div>
+      <div class="phase spot tilt reveal d4"><div class="pn">05</div><h4>Ship real</h4><p>Sit inside a real company. Ship real product. Walk out with the offer.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EVERYTHING INCLUDED (value stack) ===================== -->
+<section class="value pad" id="includes">
+  <span class="blob b-blue" style="width:340px;height:340px;top:-80px;right:-90px;"></span>
+  <div class="wrap">
+    <div class="section-head reveal" style="max-width:820px;">
+      <div class="eyebrow">What a cohort includes</div>
+      <h2>One programme. Everything a hireable engineer needs — stacked.</h2>
+      <p class="sub">This isn't a course you watch. It's a full engineering education layered on top of your degree. Here's everything an ALP student walks away carrying.</p>
+    </div>
+    <div class="value-card reveal d1">
+      <ul class="value-grid">
+        <li><span class="vk">✓</span><div><b>Certifications across all four layers</b><span class="vd">CS Foundation, AI Stack, Stream Specialisation and Domain Context — named and verifiable.</span></div></li>
+        <li><span class="vk">✓</span><div><b>A specialisation taught to hiring depth</b><span class="vd">Full-Stack, DevOps + Cloud, Data Engineering, Cybersecurity or AI Engineering.</span></div></li>
+        <li><span class="vk">✓</span><div><b>Daily AI-stack fluency</b><span class="vd">Claude, Cursor, Copilot, prompt &amp; context engineering, agent design — used every day, not bolted on.</span></div></li>
+        <li><span class="vk">✓</span><div><b>System design training</b><span class="vd">The interview round that breaks self-taught coders — drilled until you own the trade-offs.</span></div></li>
+        <li><span class="vk">✓</span><div><b>A spot on the live coding ladder</b><span class="vd">Measured against the single ladder companies actually recognise. Real, not self-reported.</span></div></li>
+        <li><span class="vk">✓</span><div><b>Mentorship from people who've climbed it</b><span class="vd">Coaches train with you at every rep. The classroom is a coding gym, not a stage.</span></div></li>
+        <li><span class="vk">✓</span><div><b>Real work, inside a real company</b><span class="vd">The final stretch is never a simulation. You ship code that ships to users.</span></div></li>
+        <li><span class="vk">✓</span><div><b>Domain context for your industry</b><span class="vd">HR-tech, fintech, healthcare, e-commerce — you understand the business you code for.</span></div></li>
+      </ul>
+      <div class="value-foot">
+        <div class="vf-line">Add it up. That's not a certificate — that's <span class="accent">a graduate companies chase.</span></div>
+        <a class="btn btn-primary" href="#apply">Claim your seat <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== YOU QUALIFY (confidence band) ===================== -->
+<section class="qualify pad" id="for-you">
+  <span class="blob b-blue" style="width:360px;height:360px;bottom:-100px;left:-90px;"></span>
+  <div class="wrap">
+    <div class="section-head reveal" style="max-width:820px;">
+      <div class="eyebrow">This is for you</div>
+      <h2>You don't need to already be good. You need to refuse to stay average.</h2>
+      <p class="sub">The most common reason students don't apply is a quiet "I'm probably not good enough yet." Read these. Then apply anyway — that's the whole point.</p>
+    </div>
+    <div class="qualify-grid">
+      <div class="q-item spot reveal d1">
+        <div class="qic">✕</div>
+        <div><h4>Low CGPA? The ladder can't read your marksheet.</h4><p>Skill is measured by what you can build on a live coding ladder companies recognise — not by your internal marks.</p></div>
+      </div>
+      <div class="q-item spot reveal d1">
+        <div class="qic">⌥</div>
+        <div><h4>Any branch. CSE, IT, ECE, EEE, Mech.</h4><p>The AI-native engineer is needed everywhere. ALP starts you from the foundation, whatever you're studying.</p></div>
+      </div>
+      <div class="q-item spot reveal d2">
+        <div class="qic">◷</div>
+        <div><h4>2nd or 3rd year is the perfect time.</h4><p>The earlier you start stacking credentials, the bigger the lead you walk into final-year placements with.</p></div>
+      </div>
+      <div class="q-item spot reveal d1">
+        <div class="qic">◇</div>
+        <div><h4>Never touched AI tools? Day one fixes that.</h4><p>We don't assume you're already fluent. The AI Stack layer is built to take you from zero to teammate-level.</p></div>
+      </div>
+      <div class="q-item spot reveal d2">
+        <div class="qic">⇄</div>
+        <div><h4>It runs alongside your degree.</h4><p>You're not replacing college or betting your future. You're out-building everyone sitting in the same lecture as you.</p></div>
+      </div>
+      <div class="q-item spot reveal d2">
+        <div class="qic">◎</div>
+        <div><h4>You're never left to figure it out alone.</h4><p>Coaches who have already climbed the ladder train with you at every rep. The classroom is a coding gym, not a stage.</p></div>
+      </div>
+    </div>
+    <p class="qualify-line reveal">The bar isn't where you start. It's whether you're <span class="accent">willing to climb.</span></p>
+  </div>
+</section>
+
+<!-- ===================== FAQ (objection handling) ===================== -->
+<section class="faq pad" id="faq">
+  <div class="wrap">
+    <div class="section-head reveal" style="margin-left:auto;margin-right:auto;text-align:center;">
+      <div class="eyebrow">Before you talk yourself out of it</div>
+      <h2>The questions every student asks first.</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item reveal d1">
+        <button class="faq-q">I'm not a top coder. Is this still for me? <span class="qx">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Yes — that's exactly who ALP is built for. You don't walk in fluent; you walk in willing. The Foundation phase gets you fluent in the basics fast, and then you climb. The only students this isn't for are the ones unwilling to put in the reps.</div></div>
+      </div>
+      <div class="faq-item reveal d1">
+        <button class="faq-q">Will it clash with my college schedule? <span class="qx">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">No. ALP is designed to run in parallel to your degree — it stacks on top of what you're already studying, not against it. You keep your degree and walk out with something your classmates don't have.</div></div>
+      </div>
+      <div class="faq-item reveal d1">
+        <button class="faq-q">What do I actually walk away with? <span class="qx">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Stacked, named, verifiable certifications across all four layers — CS Foundation, AI Stack, Stream Specialisation and Domain Context — plus a specialisation you've gone deep on and real work shipped inside a real company. Not a certificate of attendance. A stack.</div></div>
+      </div>
+      <div class="faq-item reveal d1">
+        <button class="faq-q">I'm in 2nd year — is it too early? Final year — too late? <span class="qx">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">The framework holds whatever year you're in — only the depth and pace change. 2nd and 3rd years get the biggest head start. If you're further along, you go faster and harder. The worst time to start is later.</div></div>
+      </div>
+      <div class="faq-item reveal d1">
+        <button class="faq-q">What does applying commit me to? <span class="qx">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Nothing yet. Applying takes about two minutes and simply tells us you're interested in the next cohort at Raghu Engineering College. We'll reach out with the details and you decide from there. No cost to apply.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CLOSING (Section 8) ===================== -->
+<section class="closing pad" id="closing">
+  <div class="wrap">
+    <div class="eyebrow light reveal" style="color:#cdd9ff">Your move</div>
+    <h2 class="reveal d1">The graduate companies want is real, trained and certified. The question is whether it's you.</h2>
+    <p class="sub reveal d2">Raghu's ALP is open to Raghu Engineering College students across branches, across CGPAs. The bar isn't where you start — it's whether you're willing to climb.</p>
+    <div class="hero-ctas reveal d3">
+      <a class="btn btn-light" href="#apply">Apply now <span class="arrow">→</span></a>
+      <a class="btn btn-outline-light" href="#apply">Talk to someone first</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== APPLY FORM ===================== -->
+<section class="apply pad" id="apply">
+  <div class="orbs"><span class="orb o1" style="opacity:0.4"></span><span class="orb o2" style="opacity:0.35"></span></div>
+  <div class="wrap">
+    <div class="apply-pitch reveal-l">
+      <div class="eyebrow">Apply now</div>
+      <h2>Two minutes today. A year's head start on everyone else.</h2>
+      <p>Tell us a little about yourself and we'll get back to you with everything you need to know about the next ALP cohort at Raghu Engineering College.</p>
+      <ul class="apply-assure">
+        <li><span class="ck">✓</span> Open to any branch, any CGPA, 2nd or 3rd year</li>
+        <li><span class="ck">✓</span> Runs in parallel to your degree — no clash</li>
+        <li><span class="ck">✓</span> No cost to apply, no commitment yet</li>
+      </ul>
+      <div class="seats"><span class="pulse"></span> Applications open · seats per cohort are limited</div>
+      <div class="cohort-strip" id="cohortStrip">
+        <div class="count-title">⏳ Applications for the next cohort close in</div>
+        <div class="count-box">
+          <div class="count-unit"><div class="cnum" id="cd-d">00</div><div class="clab">Days</div></div>
+          <div class="count-unit"><div class="cnum" id="cd-h">00</div><div class="clab">Hours</div></div>
+          <div class="count-unit"><div class="cnum" id="cd-m">00</div><div class="clab">Mins</div></div>
+          <div class="count-unit"><div class="cnum" id="cd-s">00</div><div class="clab">Secs</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-card reveal-r" id="formCard">
+      <form id="applyForm" novalidate>
+        <h3>Apply to the next cohort</h3>
+        <p class="fc-sub">Raghu Engineering College students · takes ~2 minutes</p>
+        <div class="field">
+          <label for="f-name">Full name</label>
+          <input id="f-name" name="name" type="text" placeholder="Your name" required />
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="f-phone">Phone / WhatsApp</label>
+            <input id="f-phone" name="phone" type="tel" placeholder="10-digit number" required />
+          </div>
+          <div class="field">
+            <label for="f-email">Email <span style="font-weight:400;color:var(--ink-faint)">(optional)</span></label>
+            <input id="f-email" name="email" type="email" placeholder="you@email.com" />
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="f-year">Current year</label>
+            <select id="f-year" name="year" required>
+              <option value="" disabled selected>Select</option>
+              <option>1st year</option>
+              <option>2nd year</option>
+              <option>3rd year</option>
+              <option>4th year</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-branch">Branch</label>
+            <select id="f-branch" name="branch" required>
+              <option value="" disabled selected>Select</option>
+              <option>CSE</option>
+              <option>IT</option>
+              <option>ECE</option>
+              <option>EEE</option>
+              <option>Mechanical</option>
+              <option>Civil</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-stream">Stream you're most drawn to <span style="font-weight:400;color:var(--ink-faint)">(optional)</span></label>
+          <select id="f-stream" name="stream">
+            <option value="" disabled selected>Select a specialisation</option>
+            <option>Full-Stack Engineering</option>
+            <option>DevOps + Cloud</option>
+            <option>Data Engineering</option>
+            <option>Cybersecurity</option>
+            <option>AI Engineering</option>
+            <option>Not sure yet — help me pick</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" type="submit">Apply to the next cohort <span class="arrow">→</span></button>
+        <p class="form-note">We'll never share your details. No spam — just cohort information.</p>
+      </form>
+      <div class="form-success" id="formSuccess">
+        <div class="tick">✓</div>
+        <h3>You're in the queue.</h3>
+        <p>Thanks — we've got your application for the next ALP cohort at Raghu Engineering College. Our team will reach out shortly with the next steps. Welcome to the climb.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <a href="#top" class="logo" style="color:#fff">Raghu's&nbsp;ALP<span class="dot" style="color:var(--blue-electric)">.</span></a>
+        <p>We don't make vibe coders. We make engineers. A structured, AI-native engineering training programme from Raghu Engineering College, running in parallel to your degree.</p>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col">
+          <h5>Programme</h5>
+          <a href="#why">Why now</a>
+          <a href="#train">What we train</a>
+          <a href="#certs">Certifications</a>
+          <a href="#journey">The journey</a>
+        </div>
+        <div class="foot-col">
+          <h5>Streams</h5>
+          <a href="#train">Full-Stack</a>
+          <a href="#train">DevOps + Cloud</a>
+          <a href="#train">Data Engineering</a>
+          <a href="#train">Cybersecurity</a>
+          <a href="#train">AI Engineering</a>
+        </div>
+        <div class="foot-col">
+          <h5>Get started</h5>
+          <a href="#for-you">Is this for me?</a>
+          <a href="#faq">FAQ</a>
+          <a href="#apply">Apply to the next cohort</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Raghu's ALP · Raghu Engineering College. Certified, not self-declared.</span>
+      <span>One ladder. Climbed in public.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to top -->
+<button class="to-top" id="toTop" aria-label="Back to top">↑</button>
+
+<!-- Sticky conversion bar -->
+<div class="sticky-cta" id="stickyCta">
+  <div class="sc-inner">
+    <div class="sc-msg">Ready to stop graduating average?<small>Next ALP cohort · Raghu Engineering College · <b id="scCount">seats filling fast</b></small></div>
+    <div class="sc-acts">
+      <a class="wa-btn" id="waBtn" href="#apply" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1 0 12 2Zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.5.1.3.7 1.1 1.4 1.7.9.8 1.7 1.1 2 1.2.2.1.4.1.5-.1l.6-.7c.2-.2.3-.2.5-.1l1.8.9c.2.1.4.2.5.3.1.2.1.6-.1 1.1Z"/></svg>
+        WhatsApp
+      </a>
+      <a class="btn btn-primary" href="#apply">Apply now <span class="arrow">→</span></a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ============================================================
+     ⚙️  EDIT THESE TWO VALUES BEFORE GOING LIVE
+     ============================================================ */
+  const COHORT_DEADLINE = '2026-07-15T23:59:59';   // when applications for the next cohort close
+  const WHATSAPP_NUMBER = '919999999999';          // Raghu admissions WhatsApp, intl format, no '+'
+  const WHATSAPP_TEXT   = "Hi! I'm a Raghu Engineering College student interested in the next ALP cohort.";
+  /* ============================================================ */
+
+  // ---------- Header scroll state + scroll progress + back-to-top ----------
+  const header = document.getElementById('header');
+  const bar = document.getElementById('scrollBar');
+  const toTop = document.getElementById('toTop');
+  const onScroll = () => {
+    const y = window.scrollY;
+    header.classList.toggle('scrolled', y > 20);
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (h > 0 ? (y / h) * 100 : 0) + '%';
+    toTop.classList.toggle('show', y > 600);
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }));
+
+  // ---------- Mobile menu ----------
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const overlay = document.getElementById('overlay');
+  const toggleMenu = (open) => {
+    hamburger.classList.toggle('open', open);
+    mobileMenu.classList.toggle('open', open);
+    overlay.classList.toggle('show', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  };
+  hamburger.addEventListener('click', () => toggleMenu(!mobileMenu.classList.contains('open')));
+  overlay.addEventListener('click', () => toggleMenu(false));
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
+
+  // ---------- Scroll reveal ----------
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal, .reveal-l, .reveal-r, .layer').forEach(el => io.observe(el));
+
+  // ---------- Count-up stats ----------
+  const animateCount = (el) => {
+    const target = parseInt(el.dataset.count, 10);
+    if (reduce || target === 0) { el.textContent = target; return; }
+    let cur = 0;
+    const step = Math.max(1, Math.ceil(target / 30));
+    const tick = () => {
+      cur = Math.min(target, cur + step);
+      el.textContent = cur;
+      if (cur < target) requestAnimationFrame(tick);
+    };
+    tick();
+  };
+  const countIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { animateCount(e.target); countIO.unobserve(e.target); } });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-count]').forEach(el => countIO.observe(el));
+
+  // ---------- Cursor spotlight + 3D tilt ----------
+  if (!reduce && window.matchMedia('(hover: hover)').matches) {
+    document.querySelectorAll('.spot').forEach(card => {
+      card.addEventListener('mousemove', (ev) => {
+        const r = card.getBoundingClientRect();
+        const px = (ev.clientX - r.left) / r.width;
+        const py = (ev.clientY - r.top) / r.height;
+        card.style.setProperty('--mx', (px * 100) + '%');
+        card.style.setProperty('--my', (py * 100) + '%');
+        if (card.classList.contains('tilt')) {
+          const rx = (0.5 - py) * 7;
+          const ry = (px - 0.5) * 7;
+          card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-6px)`;
+        }
+      });
+      card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+    });
+  }
+
+  // ---------- Parallax orbs (hero) ----------
+  if (!reduce) {
+    const orbs = document.querySelectorAll('.orb');
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      orbs.forEach((o, i) => { o.style.transform = `translateY(${y * (0.06 + i * 0.03)}px)`; });
+    }, { passive: true });
+  }
+
+  // ---------- Seamless marquee (duplicate items) ----------
+  const marquee = document.getElementById('marquee');
+  if (marquee) marquee.innerHTML += marquee.innerHTML;
+
+  // ---------- Scroll-spy nav ----------
+  const navlinks = [...document.querySelectorAll('.nav-links a.navlink')];
+  const sections = navlinks => navlinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const secEls = sections(navlinks);
+  const spyIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = '#' + e.target.id;
+        navlinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  secEls.forEach(s => spyIO.observe(s));
+
+  // ---------- FAQ accordion ----------
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const q = item.querySelector('.faq-q');
+    const a = item.querySelector('.faq-a');
+    q.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      // close all
+      document.querySelectorAll('.faq-item').forEach(o => {
+        o.classList.remove('open');
+        o.querySelector('.faq-a').style.maxHeight = null;
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        a.style.maxHeight = a.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // ---------- Apply form ----------
+  const form = document.getElementById('applyForm');
+  const success = document.getElementById('formSuccess');
+  if (form) {
+    form.addEventListener('submit', (ev) => {
+      ev.preventDefault();
+      // basic native validation
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      // TODO: connect to a real endpoint (Formspree / Google Form / WhatsApp / backend).
+      // For now we capture the data and show a confirmation.
+      const data = Object.fromEntries(new FormData(form).entries());
+      console.log('ALP application submitted:', data);
+      form.style.display = 'none';
+      success.classList.add('show');
+      success.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+    });
+  }
+
+  // ---------- WhatsApp links ----------
+  const waHref = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(WHATSAPP_TEXT);
+  const waBtn = document.getElementById('waBtn');
+  if (waBtn) waBtn.href = waHref;
+
+  // ---------- Cohort countdown (authentic — counts to a real fixed date) ----------
+  const deadline = new Date(COHORT_DEADLINE).getTime();
+  const cd = { d: document.getElementById('cd-d'), h: document.getElementById('cd-h'), m: document.getElementById('cd-m'), s: document.getElementById('cd-s') };
+  const cohortStrip = document.getElementById('cohortStrip');
+  const scCount = document.getElementById('scCount');
+  const pad = (n) => String(n).padStart(2, '0');
+  const tickCountdown = () => {
+    const diff = deadline - Date.now();
+    if (isNaN(deadline)) { if (cohortStrip) cohortStrip.style.display = 'none'; return; }
+    if (diff <= 0) {
+      if (cohortStrip) cohortStrip.querySelector('.count-title').textContent = '✓ Applications are open now — apply before seats fill';
+      if (cd.d) { cd.d.textContent = cd.h.textContent = cd.m.textContent = cd.s.textContent = '00'; }
+      if (scCount) scCount.textContent = 'apply before seats fill';
+      return false;
+    }
+    const days = Math.floor(diff / 86400000);
+    const hrs = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    const secs = Math.floor((diff % 60000) / 1000);
+    if (cd.d) { cd.d.textContent = pad(days); cd.h.textContent = pad(hrs); cd.m.textContent = pad(mins); cd.s.textContent = pad(secs); }
+    if (scCount) scCount.textContent = 'closes in ' + days + 'd ' + hrs + 'h ' + mins + 'm';
+    return true;
+  };
+  tickCountdown();
+  setInterval(tickCountdown, 1000);
+
+  // ---------- Sticky CTA bar ----------
+  const stickyCta = document.getElementById('stickyCta');
+  let applyInView = false;
+  const applySection = document.getElementById('apply');
+  if (applySection) {
+    new IntersectionObserver((entries) => {
+      applyInView = entries[0].isIntersecting;
+    }, { threshold: 0.15 }).observe(applySection);
+  }
+  const updateSticky = () => {
+    // show once past the hero, hide while the apply form itself is on screen
+    const show = window.scrollY > window.innerHeight * 0.85 && !applyInView;
+    stickyCta.classList.toggle('show', show);
+    toTop.classList.toggle('lifted', show);
+  };
+  updateSticky();
+  window.addEventListener('scroll', updateSticky, { passive: true });
+</script>
+</body>
+</html>
