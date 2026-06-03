@@ -559,7 +559,9 @@
     .nav-cta .btn.apply-mini { display: inline-flex; }
 
     .pillars { grid-template-columns: 1fr; }
-    .vs-row { grid-template-columns: 1fr; gap: 10px; }
+    /* Each comparison becomes a self-contained card so the vibe→alp pair reads as one unit, clearly separated from the next */
+    .vs-rows { gap: 18px; }
+    .vs-row { grid-template-columns: 1fr; gap: 10px; padding: 14px; border: 1px solid var(--line); border-radius: var(--radius); background: rgba(31,95,255,0.025); }
     .vs-mid { width: 28px; height: 28px; transform: rotate(90deg); margin: 2px auto; z-index: 1; }
     .vs-mid svg { width: 14px; height: 14px; }
 
