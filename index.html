@@ -558,7 +558,19 @@
     .nav-cta .btn:not(.hamburger) { display: none; }
     .hamburger { display: flex; }
     /* Apply CTA stays visible at all sizes via mobile menu trigger + sticky apply */
-    .nav-cta .btn.apply-mini { display: inline-flex; }
+    .nav-cta { gap: 8px; }
+    .nav-cta .btn.apply-mini {
+      display: inline-flex;
+      /* Compact so it sits neatly in the header row instead of pushing it taller */
+      padding: 0.5em 1.05em;
+      font-size: 0.86rem;
+      line-height: 1;
+      /* Pulse to draw the eye to the primary CTA */
+      animation: applyPulse 2.2s var(--ease) infinite;
+    }
+    /* Pause the pulse on tap/hover so it feels responsive, not busy */
+    .nav-cta .btn.apply-mini:active,
+    .nav-cta .btn.apply-mini:hover { animation: none; transform: scale(0.96); }
 
     .pillars { grid-template-columns: 1fr; }
     /* Each comparison becomes a self-contained card so the vibe→alp pair reads as one unit, clearly separated from the next */
@@ -589,6 +601,15 @@
 
   /* show apply-mini only on small screens */
   .apply-mini { display: none; }
+  /* Attention pulse for the compact mobile Apply button — a soft "breathing" glow + nudge */
+  @keyframes applyPulse {
+    0%, 100% { transform: scale(1);    box-shadow: 0 6px 16px -6px rgba(31, 95, 255, 0.65); }
+    50%      { transform: scale(1.06); box-shadow: 0 0 0 6px rgba(31, 95, 255, 0.18), 0 10px 22px -6px rgba(31, 95, 255, 0.8); }
+  }
+  /* Respect users who prefer less motion */
+  @media (prefers-reduced-motion: reduce) {
+    .nav-cta .btn.apply-mini { animation: none; }
+  }
 
   /* ============================================================
      ✦ EYE-CATCHING ENHANCEMENTS ✦
