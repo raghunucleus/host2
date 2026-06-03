@@ -469,6 +469,8 @@
   .chip .badge.noimg { font-size: 0.85rem; background: var(--bg-tint); border-color: transparent; }
   .chip .meta { display: flex; flex-direction: column; line-height: 1.25; }
   .chip .meta small { color: var(--ink-faint); font-size: 0.74rem; font-weight: 400; }
+  .chip.more { background: var(--bg-tint); border-style: dashed; border-color: var(--line); color: var(--ink-soft); font-weight: 600; padding: 12px 18px; align-self: center; }
+  .chip.more:hover { border-color: var(--blue); color: var(--blue); }
   .cert-note { margin-top: 26px; font-size: 0.85rem; color: var(--ink-faint); border-left: 3px solid var(--line); padding-left: 14px; }
 
   /* ============================================================
@@ -1247,7 +1249,7 @@
     <div class="section-head reveal">
       <div class="chapter"><span class="ch-no">05</span> Proof, not promises</div>
       <h2>Four layers. Stacked credentials at every one.</h2>
-      <p class="sub">ALP's curriculum is built as four layers — CS Foundation, AI Stack, Stream Specialisation and Domain Context. A graduate walks out with named, verifiable certifications at each layer. This isn't a credential, it's a stack.</p>
+      <p class="sub">ALP's curriculum is built as four layers — CS Foundation, AI Stack, Stream Specialisation and Domain Context. A graduate walks out with <strong>30+ named, verifiable certifications</strong> stacked across these layers. This isn't a credential, it's a stack.</p>
     </div>
 
     <div class="cert-wall">
@@ -1262,6 +1264,9 @@
           <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=codechef.com&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">CC</span><span class="meta">CodeChef — CCDSAP Advanced<small>DSA · Algorithms</small></span></div>
           <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=github.com&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">GH</span><span class="meta">GitHub — Foundations<small>Version control</small></span></div>
           <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=hackerrank.com&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">HR</span><span class="meta">HackerRank — Problem Solving<small>Python · Java</small></span></div>
+          <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=leetcode.com&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">LC</span><span class="meta">LeetCode — Skill Path<small>DSA · Patterns</small></span></div>
+          <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=freecodecamp.org&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">fC</span><span class="meta">freeCodeCamp — CS<small>Algorithms · Structures</small></span></div>
+          <div class="chip more">+10 more</div>
         </div>
       </div>
       <!-- Layer 02 -->
@@ -1276,6 +1281,10 @@
           <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=deeplearning.ai&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">DL</span><span class="meta">DeepLearning.AI — Andrew Ng<small>Prompt Eng · LLMs</small></span></div>
           <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=cursor.com&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">Cu</span><span class="meta">Cursor — AI-Led Development<small>Pair-programming certified</small></span></div>
           <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=github.com&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">Co</span><span class="meta">GitHub Copilot<small>In-IDE AI</small></span></div>
+          <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=openai.com&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">OA</span><span class="meta">OpenAI — API Essentials<small>GPT · Embeddings</small></span></div>
+          <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=huggingface.co&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">HF</span><span class="meta">Hugging Face — NLP<small>Transformers · Models</small></span></div>
+          <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=cloud.google.com&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">GA</span><span class="meta">Google — Generative AI<small>Fundamentals</small></span></div>
+          <div class="chip more">+10 more</div>
         </div>
       </div>
       <!-- Layer 03 -->
@@ -1291,6 +1300,10 @@
           <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=mongodb.com&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">Mo</span><span class="meta">MongoDB — Associate Dev<small>Full-Stack stream</small></span></div>
           <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=google.com&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">Go</span><span class="meta">Google — Data Analytics<small>Data Engineering stream</small></span></div>
           <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=comptia.org&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">C+</span><span class="meta">CompTIA — Security+<small>Cybersecurity stream</small></span></div>
+          <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=docker.com&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">Dk</span><span class="meta">Docker — Certified Associate<small>DevOps stream</small></span></div>
+          <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=react.dev&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">Re</span><span class="meta">Meta — Front-End (React)<small>Full-Stack stream</small></span></div>
+          <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=oracle.com&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">Or</span><span class="meta">Oracle — Java SE<small>Backend stream</small></span></div>
+          <div class="chip more">+10 more</div>
         </div>
       </div>
       <!-- Layer 04 -->
@@ -1305,6 +1318,9 @@
           <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=nism.ac.in&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">Fi</span><span class="meta">NISM Series VIII<small>Fintech domain</small></span></div>
           <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=himss.org&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">He</span><span class="meta">HIPAA + HL7 basics (HIMSS)<small>Healthcare domain</small></span></div>
           <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=shopify.com&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">Sh</span><span class="meta">Shopify Partner<small>E-commerce domain</small></span></div>
+          <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=stripe.com&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">St</span><span class="meta">Stripe — Payments<small>Fintech domain</small></span></div>
+          <div class="chip"><span class="badge"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=salesforce.com&sz=128" onerror="this.parentElement.classList.add('noimg');this.remove()">SF</span><span class="meta">Salesforce — Admin<small>CRM / SaaS domain</small></span></div>
+          <div class="chip more">+10 more</div>
         </div>
       </div>
     </div>
