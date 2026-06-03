@@ -828,8 +828,8 @@
 
   .to-top.lifted { bottom: 90px; }
 
-  /* ---- Cohort / countdown ---- */
-  .cohort-strip { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+  /* ---- Batch / countdown ---- */
+  .batch-strip { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
   .count-box { display: flex; gap: 8px; }
   .count-unit { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16); border-radius: 12px; padding: 10px 14px; text-align: center; min-width: 58px; }
   .count-unit .cnum { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.5rem; color: #fff; line-height: 1; }
@@ -933,7 +933,6 @@
   [data-theme="color"] .seats .pulse { background: #34d399; }
   @media (max-width: 760px) { .tt-label { display: none; } .theme-toggle { padding: 7px 9px; } }
 </style>
-<script>try{var _t=localStorage.getItem('alp-theme');if(_t==='color')document.documentElement.setAttribute('data-theme','color');}catch(e){}</script>
 </head>
 <body>
 
@@ -952,11 +951,8 @@
       <a class="navlink" href="#journey">The journey</a>
     </nav>
     <div class="nav-cta">
-      <button class="theme-toggle" id="themeToggle" aria-label="Switch colour theme" title="Switch theme">
-        <span class="tt-swatch"></span><span class="tt-label"></span>
-      </button>
       <a class="btn btn-primary apply-mini" href="#apply">Apply</a>
-      <a class="btn btn-primary" href="#apply">Apply to the next cohort</a>
+      <a class="btn btn-primary" href="#apply">Apply to the next batch</a>
       <button class="hamburger" id="hamburger" aria-label="Open menu">
         <span></span><span></span><span></span>
       </button>
@@ -972,7 +968,7 @@
   <a class="navlink" href="#certs">Certifications</a>
   <a class="navlink" href="#how">How we do it</a>
   <a class="navlink" href="#journey">The journey</a>
-  <a class="btn btn-primary" href="#apply">Apply to the next cohort</a>
+  <a class="btn btn-primary" href="#apply">Apply to the next batch</a>
 </aside>
 
 <span id="top"></span>
@@ -989,7 +985,7 @@
     <h1 class="reveal d1">We don't make <span class="strike">vibe coders</span>.<br><span class="line2 shimmer">We make engineers.</span></h1>
     <p class="sub reveal d2">Anyone can paste a prompt and ship something half-working. ALP builds the other thing — engineers trained on a concrete AI stack, real domain context, real system design and a deep specialisation, certified by the bodies that companies actually screen for.</p>
     <div class="hero-ctas reveal d3">
-      <a class="btn btn-primary" href="#apply">Apply to the next cohort <span class="arrow">→</span></a>
+      <a class="btn btn-primary" href="#apply">Apply to the next batch <span class="arrow">→</span></a>
       <a class="btn btn-outline-light" href="#train">See what we train</a>
     </div>
     <div class="hero-trust reveal d4">
@@ -1282,7 +1278,7 @@
     <div class="section-head reveal">
       <div class="chapter"><span class="ch-no">06</span> Why it actually works</div>
       <h2>Three design choices. Everything else is a consequence.</h2>
-      <p class="sub">The reason ALP works isn't a syllabus. It's these three refusals — the things we won't compromise on, no matter the cohort.</p>
+      <p class="sub">The reason ALP works isn't a syllabus. It's these three refusals — the things we won't compromise on, no matter the batch.</p>
     </div>
     <div class="refusals">
       <div class="refusal spot tilt reveal d1">
@@ -1327,7 +1323,7 @@
   <span class="blob b-blue" style="width:340px;height:340px;top:-80px;right:-90px;"></span>
   <div class="wrap">
     <div class="section-head reveal" style="max-width:820px;">
-      <div class="eyebrow">What a cohort includes</div>
+      <div class="eyebrow">What a batch includes</div>
       <h2>One programme. Everything a hireable engineer needs — stacked.</h2>
       <p class="sub">This isn't a course you watch. It's a full engineering education layered on top of your degree. Here's everything an ALP student walks away carrying.</p>
     </div>
@@ -1415,7 +1411,7 @@
       </div>
       <div class="faq-item reveal d1">
         <button class="faq-q">What does applying commit me to? <span class="qx">+</span></button>
-        <div class="faq-a"><div class="faq-a-inner">Nothing yet. Applying takes about two minutes and simply tells us you're interested in the next cohort at Raghu Engineering College. We'll reach out with the details and you decide from there. No cost to apply.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Nothing yet. Applying takes about two minutes and simply tells us you're interested in the next batch at Raghu Engineering College. We'll reach out with the details and you decide from there. No cost to apply.</div></div>
       </div>
     </div>
   </div>
@@ -1429,7 +1425,7 @@
     <p class="sub reveal d2">Raghu's ALP is open to Raghu Engineering College students across branches, across CGPAs. The bar isn't where you start — it's whether you're willing to climb.</p>
     <div class="hero-ctas reveal d3">
       <a class="btn btn-light" href="#apply">Apply now <span class="arrow">→</span></a>
-      <a class="btn btn-outline-light" href="#apply">Talk to someone first</a>
+      <a class="btn btn-outline-light" id="waTalk" href="#apply" target="_blank" rel="noopener">Have a question? Ask on WhatsApp</a>
     </div>
   </div>
 </section>
@@ -1447,13 +1443,13 @@
       <div class="path path-wait reveal-l">
         <span class="path-tag">✕ If you wait one more semester</span>
         <ul>
-          <li><span class="pic">✕</span> Another cohort starts ahead of you — that head start is gone for good.</li>
+          <li><span class="pic">✕</span> Another batch starts ahead of you — that head start is gone for good.</li>
           <li><span class="pic">✕</span> You reach final year with a degree and a hope, like everyone else.</li>
           <li><span class="pic">✕</span> You compete for whatever role opens first, on someone else's terms.</li>
         </ul>
       </div>
       <div class="path path-now reveal-r">
-        <span class="path-tag">✓ If you start with this cohort</span>
+        <span class="path-tag">✓ If you start with this batch</span>
         <ul>
           <li><span class="pic">✓</span> You stack certified credentials from day one — ahead of your batch.</li>
           <li><span class="pic">✓</span> You walk into final year with proof on the table, not promises.</li>
@@ -1462,7 +1458,7 @@
       </div>
     </div>
     <div class="fomo-cta reveal">
-      <div class="count-title" style="justify-content:center;">⏳ This cohort's applications close in</div>
+      <div class="count-title" style="justify-content:center;">⏳ This batch's applications close in</div>
       <div class="fomo-count">
         <div class="count-unit"><div class="cnum" id="cd-d2">00</div><div class="clab">Days</div></div>
         <div class="count-unit"><div class="cnum" id="cd-h2">00</div><div class="clab">Hours</div></div>
@@ -1481,15 +1477,15 @@
     <div class="apply-pitch reveal-l">
       <div class="eyebrow">Apply now</div>
       <h2>Two minutes today. A year's head start on everyone else.</h2>
-      <p>Tell us a little about yourself and we'll get back to you with everything you need to know about the next ALP cohort at Raghu Engineering College.</p>
+      <p>Tell us a little about yourself and we'll get back to you with everything you need to know about the next ALP batch at Raghu Engineering College.</p>
       <ul class="apply-assure">
         <li><span class="ck">✓</span> Open to any branch, any CGPA, 2nd or 3rd year</li>
         <li><span class="ck">✓</span> Runs in parallel to your degree — no clash</li>
         <li><span class="ck">✓</span> No cost to apply, no commitment yet</li>
       </ul>
-      <div class="seats"><span class="pulse"></span> Applications open · seats per cohort are limited</div>
-      <div class="cohort-strip" id="cohortStrip">
-        <div class="count-title">⏳ Applications for the next cohort close in</div>
+      <div class="seats"><span class="pulse"></span> Applications open · seats per batch are limited</div>
+      <div class="batch-strip" id="batchStrip">
+        <div class="count-title">⏳ Applications for the next batch close in</div>
         <div class="count-box">
           <div class="count-unit"><div class="cnum" id="cd-d">00</div><div class="clab">Days</div></div>
           <div class="count-unit"><div class="cnum" id="cd-h">00</div><div class="clab">Hours</div></div>
@@ -1501,7 +1497,7 @@
 
     <div class="form-card reveal-r" id="formCard">
       <form id="applyForm" novalidate>
-        <h3>Apply to the next cohort</h3>
+        <h3>Apply to the next batch</h3>
         <p class="fc-sub">Raghu Engineering College students · takes ~2 minutes</p>
         <div class="field">
           <label for="f-name">Full name</label>
@@ -1554,13 +1550,13 @@
             <option>Not sure yet — help me pick</option>
           </select>
         </div>
-        <button class="btn btn-primary" type="submit">Apply to the next cohort <span class="arrow">→</span></button>
-        <p class="form-note">We'll never share your details. No spam — just cohort information.</p>
+        <button class="btn btn-primary" type="submit">Apply to the next batch <span class="arrow">→</span></button>
+        <p class="form-note">Registration happens right here on this form. We'll never share your details — no spam, just batch information.<br>Just have a question? <a id="waForm" href="#apply" target="_blank" rel="noopener" style="color:var(--blue);font-weight:600;">Ask us on WhatsApp</a> — we're happy to help.</p>
       </form>
       <div class="form-success" id="formSuccess">
         <div class="tick">✓</div>
         <h3>You're in the queue.</h3>
-        <p>Thanks — we've got your application for the next ALP cohort at Raghu Engineering College. Our team will reach out shortly with the next steps. Welcome to the climb.</p>
+        <p>Thanks — we've got your application for the next ALP batch at Raghu Engineering College. Our team will reach out shortly with the next steps. Welcome to the climb.</p>
       </div>
     </div>
   </div>
@@ -1594,7 +1590,7 @@
           <h5>Get started</h5>
           <a href="#for-you">Is this for me?</a>
           <a href="#faq">FAQ</a>
-          <a href="#apply">Apply to the next cohort</a>
+          <a href="#apply">Apply to the next batch</a>
         </div>
       </div>
     </div>
@@ -1611,11 +1607,11 @@
 <!-- Sticky conversion bar -->
 <div class="sticky-cta" id="stickyCta">
   <div class="sc-inner">
-    <div class="sc-msg">Ready to stop graduating average?<small>Next ALP cohort · Raghu Engineering College · <b id="scCount">seats filling fast</b></small></div>
+    <div class="sc-msg">Ready to stop graduating average?<small>Next ALP batch · Raghu Engineering College · <b id="scCount">seats filling fast</b></small></div>
     <div class="sc-acts">
-      <a class="wa-btn" id="waBtn" href="#apply" target="_blank" rel="noopener">
+      <a class="wa-btn" id="waBtn" href="#apply" target="_blank" rel="noopener" title="Questions? Chat with us on WhatsApp">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1 0 12 2Zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.5.1.3.7 1.1 1.4 1.7.9.8 1.7 1.1 2 1.2.2.1.4.1.5-.1l.6-.7c.2-.2.3-.2.5-.1l1.8.9c.2.1.4.2.5.3.1.2.1.6-.1 1.1Z"/></svg>
-        WhatsApp
+        Ask a question
       </a>
       <a class="btn btn-primary" href="#apply">Apply now <span class="arrow">→</span></a>
     </div>
@@ -1625,23 +1621,13 @@
 <script>
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // ---------- Theme switcher (blue/white ⇄ colourful) ----------
-  const themeToggle = document.getElementById('themeToggle');
-  if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-      const goColor = document.documentElement.getAttribute('data-theme') !== 'color';
-      if (goColor) document.documentElement.setAttribute('data-theme', 'color');
-      else document.documentElement.removeAttribute('data-theme');
-      try { localStorage.setItem('alp-theme', goColor ? 'color' : 'blue'); } catch (e) {}
-    });
-  }
 
   /* ============================================================
      ⚙️  EDIT THESE TWO VALUES BEFORE GOING LIVE
      ============================================================ */
-  const COHORT_DEADLINE = '2026-07-15T23:59:59';   // when applications for the next cohort close
+  const COHORT_DEADLINE = '2026-07-15T23:59:59';   // when applications for the next batch close
   const WHATSAPP_NUMBER = '919493925094';          // Raghu admissions WhatsApp, intl format, no '+'
-  const WHATSAPP_TEXT   = "Hi! I'm a Raghu Engineering College student interested in the next ALP cohort.";
+  const WHATSAPP_TEXT   = "Hi! I'm a Raghu Engineering College student and I have a few questions about ALP. Could you help me out?";
   /* ============================================================ */
 
   // ---------- Header scroll state + scroll progress + back-to-top ----------
@@ -1783,20 +1769,20 @@
 
   // ---------- WhatsApp links ----------
   const waHref = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(WHATSAPP_TEXT);
-  const waBtn = document.getElementById('waBtn');
-  if (waBtn) waBtn.href = waHref;
+  // WhatsApp is for assistance/questions only — registration happens via the form.
+  ['waBtn', 'waTalk', 'waForm'].forEach(id => { const el = document.getElementById(id); if (el) el.href = waHref; });
 
-  // ---------- Cohort countdown (authentic — counts to a real fixed date) ----------
+  // ---------- Batch countdown (authentic — counts to a real fixed date) ----------
   const deadline = new Date(COHORT_DEADLINE).getTime();
   const cd = { d: document.getElementById('cd-d'), h: document.getElementById('cd-h'), m: document.getElementById('cd-m'), s: document.getElementById('cd-s') };
-  const cohortStrip = document.getElementById('cohortStrip');
+  const batchStrip = document.getElementById('batchStrip');
   const scCount = document.getElementById('scCount');
   const pad = (n) => String(n).padStart(2, '0');
   const tickCountdown = () => {
     const diff = deadline - Date.now();
-    if (isNaN(deadline)) { if (cohortStrip) cohortStrip.style.display = 'none'; return; }
+    if (isNaN(deadline)) { if (batchStrip) batchStrip.style.display = 'none'; return; }
     if (diff <= 0) {
-      if (cohortStrip) cohortStrip.querySelector('.count-title').textContent = '✓ Applications are open now — apply before seats fill';
+      if (batchStrip) batchStrip.querySelector('.count-title').textContent = '✓ Applications are open now — apply before seats fill';
       if (cd.d) { cd.d.textContent = cd.h.textContent = cd.m.textContent = cd.s.textContent = '00'; }
       if (scCount) scCount.textContent = 'apply before seats fill';
       return false;
