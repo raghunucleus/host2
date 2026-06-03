@@ -137,22 +137,29 @@
   .logo {
     font-family: 'Space Grotesk', sans-serif;
     font-weight: 700; font-size: 1.5rem; letter-spacing: -0.03em;
-    color: var(--ink); display: flex; align-items: center; gap: 8px;
+    color: #fff; display: flex; align-items: center; gap: 8px;
+    transition: color 0.3s; text-shadow: 0 1px 12px rgba(0,0,0,0.25);
   }
-  .logo .dot { color: var(--blue); }
+  header.scrolled .logo { color: var(--ink); text-shadow: none; }
+  .logo .dot { color: var(--blue-electric); }
+  header.scrolled .logo .dot { color: var(--blue); }
   .nav-links { display: flex; align-items: center; gap: 30px; }
   .nav-links a.navlink {
-    font-size: 0.92rem; font-weight: 500; color: var(--ink-soft);
+    font-size: 0.92rem; font-weight: 500; color: rgba(255,255,255,0.82);
     transition: color 0.2s; position: relative;
   }
-  .nav-links a.navlink:hover { color: var(--blue); }
+  header.scrolled .nav-links a.navlink { color: var(--ink-soft); }
+  .nav-links a.navlink:hover { color: #fff; }
+  header.scrolled .nav-links a.navlink:hover { color: var(--blue); }
   .nav-cta { display: flex; align-items: center; gap: 12px; }
 
   .hamburger {
     display: none; flex-direction: column; gap: 5px;
     background: none; border: none; cursor: pointer; padding: 8px;
   }
-  .hamburger span { width: 24px; height: 2px; background: var(--ink); border-radius: 2px; transition: 0.3s; }
+  .hamburger span { width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: 0.3s; }
+  header.scrolled .hamburger span { background: var(--ink); }
+  .hamburger.open span { background: var(--ink); }
   .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .hamburger.open span:nth-child(2) { opacity: 0; }
   .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
@@ -235,6 +242,95 @@
   .hero-stats { display: flex; flex-wrap: wrap; gap: 36px; margin-top: 64px; padding-top: 36px; border-top: 1px solid rgba(255,255,255,0.12); }
   .hero-stats .stat .n { font-family: 'Space Grotesk', sans-serif; font-size: 1.9rem; font-weight: 700; color: #fff; }
   .hero-stats .stat .l { font-size: 0.82rem; color: #9fadd8; letter-spacing: 0.02em; }
+
+  .hero-trust { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px 30px; margin-top: 56px; padding-top: 34px; border-top: 1px solid rgba(255,255,255,0.12); max-width: 720px; }
+  .hero-trust .ht { display: flex; gap: 12px; align-items: flex-start; }
+  .hero-trust .htk { flex: none; width: 28px; height: 28px; border-radius: 50%; background: rgba(61,139,255,0.22); color: var(--blue-electric); display: grid; place-items: center; font-size: 0.82rem; font-weight: 700; margin-top: 2px; }
+  .hero-trust .ht b { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1rem; color: #fff; display: block; line-height: 1.25; }
+  .hero-trust .ht small { color: #a9b4d8; font-size: 0.85rem; }
+  @media (max-width: 620px) { .hero-trust { grid-template-columns: 1fr; gap: 16px; } }
+
+  /* ============================================================
+     ✦ OVERVIEW — the 60-second pitch (dark slide) ✦
+     ============================================================ */
+  .overview {
+    background:
+      radial-gradient(900px 520px at 88% -10%, rgba(61,139,255,0.30), transparent 60%),
+      radial-gradient(700px 400px at 0% 120%, rgba(31,95,255,0.22), transparent 55%),
+      linear-gradient(160deg, var(--navy) 0%, var(--navy-2) 100%);
+    color: #fff; position: relative; overflow: hidden;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .overview .wrap { position: relative; z-index: 2; }
+  .ov-grid { display: grid; grid-template-columns: 1.02fr 0.98fr; gap: 60px; align-items: center; }
+  .ov-pitch .eyebrow { color: var(--blue-electric); }
+  .ov-badge { display: inline-flex; align-items: center; gap: 10px; padding: 7px 17px 7px 8px; border-radius: 100px; background: rgba(61,139,255,0.12); border: 1px solid rgba(61,139,255,0.34); color: #d3e1ff; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.76rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 22px; }
+  .ov-badge .play { width: 24px; height: 24px; border-radius: 50%; background: var(--blue-electric); color: #08122e; display: grid; place-items: center; font-size: 0.6rem; padding-left: 2px; box-shadow: 0 0 14px rgba(61,139,255,0.6); }
+  .ov-pitch h2 { font-size: clamp(1.9rem, 4vw, 3rem); color: #fff; margin: 16px 0 22px; }
+  .ov-pitch h2 .accent { color: var(--blue-electric); }
+  .ov-lead { font-size: clamp(1.02rem, 1.6vw, 1.2rem); color: #c3cdf0; }
+  .ov-lead b { color: #fff; font-weight: 600; }
+  .ov-kicker { margin-top: 28px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(1.15rem, 2.2vw, 1.55rem); line-height: 1.3; color: #fff; }
+  .ov-kicker em { font-style: italic; color: #9fb0e0; }
+  .ov-kicker .accent { color: var(--blue-electric); }
+  .ov-cta { margin-top: 30px; }
+
+  .stack-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius-lg); padding: 24px; box-shadow: 0 34px 80px -34px rgba(0,0,0,0.65); }
+  .stack-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; padding: 0 4px; }
+  .stack-head .sh-title { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.95rem; color: #fff; }
+  .stack-head .sh-sub { font-size: 0.68rem; color: #9fadd8; text-transform: uppercase; letter-spacing: 0.14em; border: 1px solid rgba(255,255,255,0.18); padding: 4px 10px; border-radius: 100px; }
+  .stack-layer { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border-radius: 14px; margin-bottom: 10px; color: #fff; box-shadow: 0 12px 26px -14px rgba(0,0,0,0.6); transition: transform 0.3s var(--ease); }
+  .stack-layer:last-child { margin-bottom: 0; }
+  .stack-layer:hover { transform: translateX(7px); }
+  .stack-layer .sl-num { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem; min-width: 30px; opacity: 0.92; }
+  .stack-layer .sl-body { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+  .stack-layer .sl-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1rem; line-height: 1.15; }
+  .stack-layer .sl-desc { font-size: 0.78rem; opacity: 0.82; }
+  .stack-layer .sl-cert { font-size: 0.68rem; font-weight: 600; background: rgba(255,255,255,0.2); padding: 5px 10px; border-radius: 100px; white-space: nowrap; flex: none; }
+  .sl-1 { background: linear-gradient(120deg, #06226e, #0c3ec4); }
+  .sl-2 { background: linear-gradient(120deg, #0c3ec4, #1f5fff); }
+  .sl-3 { background: linear-gradient(120deg, #1f5fff, #3d8bff); }
+  .sl-4 { background: linear-gradient(120deg, #3d8bff, #63a6ff); }
+
+  @media (max-width: 880px) {
+    .ov-grid { grid-template-columns: 1fr; gap: 40px; }
+  }
+
+  /* ============================================================
+     ✦ STORY CHAPTERS + FOMO ✦
+     ============================================================ */
+  .chapter { display: inline-flex; align-items: center; gap: 11px; font-family: 'Space Grotesk', sans-serif; text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.72rem; font-weight: 600; color: var(--blue); margin-bottom: 8px; }
+  .chapter .ch-no { background: var(--blue); color: #fff; padding: 3px 9px; border-radius: 6px; letter-spacing: 0.06em; font-size: 0.7rem; }
+  .chapter.light { color: var(--blue-electric); }
+  .chapter.light .ch-no { background: var(--blue-electric); color: #08122e; }
+
+  .fomo {
+    background:
+      radial-gradient(800px 500px at 12% -10%, rgba(61,139,255,0.28), transparent 55%),
+      linear-gradient(160deg, #0a1838 0%, #0a2150 100%);
+    color: #fff; position: relative; overflow: hidden;
+  }
+  .fomo .wrap { position: relative; z-index: 2; }
+  .fomo .section-head h2 { color: #fff; }
+  .fomo .section-head h2 .accent { color: var(--blue-electric); }
+  .fomo .section-head .sub { color: #b9c4ea; }
+  .paths { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; max-width: 940px; margin: 0 auto; }
+  .path { border-radius: var(--radius-lg); padding: 30px 28px; border: 1px solid; }
+  .path-tag { font-family: 'Space Grotesk', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; font-size: 0.76rem; margin-bottom: 18px; display: inline-flex; align-items: center; gap: 8px; padding: 7px 15px; border-radius: 100px; }
+  .path ul { list-style: none; display: flex; flex-direction: column; gap: 13px; }
+  .path li { display: flex; gap: 11px; font-size: 0.97rem; align-items: flex-start; }
+  .path li .pic { flex: none; margin-top: 1px; font-weight: 700; }
+  .path-wait { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1); }
+  .path-wait .path-tag { background: rgba(255,255,255,0.08); color: #9fadd8; }
+  .path-wait li { color: #8893b8; }
+  .path-wait li .pic { color: #6b76a0; }
+  .path-now { background: linear-gradient(160deg, rgba(31,95,255,0.24), rgba(61,139,255,0.08)); border-color: rgba(61,139,255,0.5); box-shadow: 0 26px 64px -32px rgba(31,95,255,0.7); }
+  .path-now .path-tag { background: var(--blue); color: #fff; }
+  .path-now li { color: #eaf0ff; }
+  .path-now li .pic { color: var(--blue-electric); }
+  .fomo-cta { display: flex; flex-direction: column; align-items: center; gap: 18px; margin-top: 46px; }
+  .fomo-count { display: flex; gap: 8px; }
+  @media (max-width: 760px) { .paths { grid-template-columns: 1fr; } }
 
   /* ============================================================
      WHY NOW — cards
@@ -457,7 +553,7 @@
     .nav-cta .btn:not(.hamburger) { display: none; }
     .hamburger { display: flex; }
     /* Apply CTA stays visible at all sizes via mobile menu trigger + sticky apply */
-    .nav-cta .apply-mini { display: inline-flex; }
+    .nav-cta .btn.apply-mini { display: inline-flex; }
 
     .pillars { grid-template-columns: 1fr; }
     .vs-row { grid-template-columns: 1fr; gap: 8px; }
@@ -750,7 +846,94 @@
     .sticky-cta .btn { flex: 1; justify-content: center; }
     .wa-btn { flex: none; }
   }
+
+  /* ============================================================
+     ✦ THEME TOGGLE (button) ✦
+     ============================================================ */
+  .theme-toggle { display: inline-flex; align-items: center; gap: 8px; padding: 7px 13px; border-radius: 100px; border: 1.5px solid rgba(255,255,255,0.28); background: transparent; cursor: pointer; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.8rem; color: #fff; transition: color 0.25s, border-color 0.25s, transform 0.2s; }
+  .theme-toggle:hover { transform: translateY(-1px); border-color: var(--blue-electric); }
+  header.scrolled .theme-toggle { color: var(--ink-soft); border-color: var(--line); }
+  .tt-swatch { width: 18px; height: 18px; border-radius: 50%; background: conic-gradient(from 0deg, #7c3aed, #ec4899, #f59e0b, #06b6d4, #7c3aed); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.18); flex: none; }
+  [data-theme="color"] .tt-swatch { background: linear-gradient(135deg, #1f5fff, #3d8bff); }
+  .tt-label::after { content: 'Color'; }
+  [data-theme="color"] .tt-label::after { content: 'Blue'; }
+
+  /* ============================================================
+     ✦✦✦  COLORFUL THEME  ✦✦✦
+     Applies when <html data-theme="color">.
+     Most fills use var(--blue)/var(--blue-electric), so re-mapping
+     the palette cascades automatically; below we also recolour the
+     hand-coded gradient backgrounds for a vibrant multi-hue look.
+     ============================================================ */
+  [data-theme="color"] {
+    --blue: #7c3aed;          /* violet primary */
+    --blue-deep: #6d28d9;
+    --blue-electric: #f472b6; /* bright pink accent (on dark) */
+    --navy: #15123f;          /* deep plum base */
+    --navy-2: #241a60;
+    --bg-soft: #faf6ff;       /* light lavender */
+    --bg-tint: #f1e7ff;
+    --line: #ece1fb;
+    --line-soft: #f5eeff;
+    --ink: #1b1138;
+    --ink-soft: #473a6b;
+    --ink-faint: #9786b6;
+    --shadow: 0 18px 50px -24px rgba(124,58,237,0.42);
+    --shadow-soft: 0 10px 30px -18px rgba(124,58,237,0.32);
+  }
+  /* Gradient buttons */
+  [data-theme="color"] .btn-primary { background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%); box-shadow: 0 12px 28px -10px rgba(219,39,119,0.6); }
+  [data-theme="color"] .btn-primary:hover { background: linear-gradient(135deg, #6d28d9 0%, #db2777 100%); }
+  [data-theme="color"] .scroll-progress-bar { background: linear-gradient(90deg, #7c3aed, #ec4899, #f59e0b); box-shadow: 0 0 12px rgba(236,72,153,0.7); }
+  /* Dark sections → plum with magenta / violet / cyan glows */
+  [data-theme="color"] .hero {
+    background:
+      radial-gradient(1100px 600px at 82% -10%, rgba(236,72,153,0.40), transparent 60%),
+      radial-gradient(900px 520px at 0% 110%, rgba(124,58,237,0.46), transparent 55%),
+      radial-gradient(700px 500px at 48% 38%, rgba(6,182,212,0.20), transparent 60%),
+      linear-gradient(160deg, #15123f 0%, #241a60 100%);
+  }
+  [data-theme="color"] .overview {
+    background:
+      radial-gradient(900px 520px at 88% -10%, rgba(236,72,153,0.34), transparent 60%),
+      radial-gradient(700px 420px at 0% 120%, rgba(124,58,237,0.32), transparent 55%),
+      linear-gradient(160deg, #15123f 0%, #241a60 100%);
+  }
+  [data-theme="color"] .not, [data-theme="color"] .journey { background: linear-gradient(160deg, #15123f, #241a60); }
+  [data-theme="color"] .not::before { background: radial-gradient(800px 400px at 90% 0%, rgba(236,72,153,0.26), transparent 60%); }
+  [data-theme="color"] .journey::before { background: radial-gradient(900px 500px at 10% 110%, rgba(124,58,237,0.32), transparent 55%); }
+  [data-theme="color"] .apply {
+    background:
+      radial-gradient(800px 500px at 85% -10%, rgba(236,72,153,0.34), transparent 60%),
+      linear-gradient(160deg, #15123f, #241a60);
+  }
+  [data-theme="color"] .fomo {
+    background:
+      radial-gradient(800px 500px at 12% -10%, rgba(244,114,182,0.32), transparent 55%),
+      linear-gradient(160deg, #181445, #2a1668);
+  }
+  [data-theme="color"] .closing {
+    background:
+      radial-gradient(900px 500px at 50% -20%, rgba(255,255,255,0.18), transparent 60%),
+      linear-gradient(135deg, #7c3aed 0%, #db2777 60%, #f59e0b 130%);
+  }
+  /* Accent blocks */
+  [data-theme="color"] .ba-after,
+  [data-theme="color"] .vs-cell.alp { background: linear-gradient(160deg, #7c3aed, #db2777); }
+  [data-theme="color"] .path-now { background: linear-gradient(160deg, rgba(124,58,237,0.30), rgba(236,72,153,0.10)); border-color: rgba(244,114,182,0.5); box-shadow: 0 26px 64px -32px rgba(219,39,119,0.65); }
+  /* Cert / stack layers → four distinct hues */
+  [data-theme="color"] .sl-1 { background: linear-gradient(120deg, #6d28d9, #7c3aed); }
+  [data-theme="color"] .sl-2 { background: linear-gradient(120deg, #2563eb, #06b6d4); }
+  [data-theme="color"] .sl-3 { background: linear-gradient(120deg, #db2777, #f472b6); }
+  [data-theme="color"] .sl-4 { background: linear-gradient(120deg, #ea580c, #f59e0b); }
+  /* Misc hand-coded blues */
+  [data-theme="color"] .ov-badge { background: rgba(124,58,237,0.16); border-color: rgba(244,114,182,0.42); color: #f3d9ff; }
+  [data-theme="color"] .not-row .label .x { background: rgba(244,114,182,0.18); color: #f472b6; }
+  [data-theme="color"] .strike::after { box-shadow: 0 0 12px rgba(244,114,182,0.65); }
+  [data-theme="color"] .seats .pulse { background: #34d399; }
+  @media (max-width: 760px) { .tt-label { display: none; } .theme-toggle { padding: 7px 9px; } }
 </style>
+<script>try{var _t=localStorage.getItem('alp-theme');if(_t==='color')document.documentElement.setAttribute('data-theme','color');}catch(e){}</script>
 </head>
 <body>
 
@@ -762,13 +945,16 @@
   <div class="wrap nav">
     <a href="#top" class="logo">Raghu's&nbsp;ALP<span class="dot">.</span></a>
     <nav class="nav-links" id="navLinks">
+      <a class="navlink" href="#what">What is ALP</a>
       <a class="navlink" href="#why">Why now</a>
       <a class="navlink" href="#train">What we train</a>
       <a class="navlink" href="#certs">Certifications</a>
-      <a class="navlink" href="#how">How</a>
       <a class="navlink" href="#journey">The journey</a>
     </nav>
     <div class="nav-cta">
+      <button class="theme-toggle" id="themeToggle" aria-label="Switch colour theme" title="Switch theme">
+        <span class="tt-swatch"></span><span class="tt-label"></span>
+      </button>
       <a class="btn btn-primary apply-mini" href="#apply">Apply</a>
       <a class="btn btn-primary" href="#apply">Apply to the next cohort</a>
       <button class="hamburger" id="hamburger" aria-label="Open menu">
@@ -780,6 +966,7 @@
 
 <div class="overlay" id="overlay"></div>
 <aside class="mobile-menu" id="mobileMenu">
+  <a class="navlink" href="#what">What is ALP</a>
   <a class="navlink" href="#why">Why now</a>
   <a class="navlink" href="#train">What we train</a>
   <a class="navlink" href="#certs">Certifications</a>
@@ -805,11 +992,35 @@
       <a class="btn btn-primary" href="#apply">Apply to the next cohort <span class="arrow">→</span></a>
       <a class="btn btn-outline-light" href="#train">See what we train</a>
     </div>
-    <div class="hero-stats reveal d4">
-      <div class="stat"><div class="n" data-count="4">0</div><div class="l">Stacked credential layers</div></div>
-      <div class="stat"><div class="n" data-count="5">0</div><div class="l">Stream specialisations</div></div>
-      <div class="stat"><div class="n" data-count="1">0</div><div class="l">Ladder, climbed in public</div></div>
-      <div class="stat"><div class="n" data-count="0">0</div><div class="l">Vibe coders made</div></div>
+    <div class="hero-trust reveal d4">
+      <div class="ht"><span class="htk">✓</span><div><b>Runs alongside your degree</b><small>No clash, no gap year — just a head start.</small></div></div>
+      <div class="ht"><span class="htk">✓</span><div><b>Industry-recognised certifications</b><small>From the bodies hiring managers actually screen for.</small></div></div>
+      <div class="ht"><span class="htk">✓</span><div><b>Mentored by working engineers</b><small>Coaches who've shipped real products, not just slides.</small></div></div>
+      <div class="ht"><span class="htk">✓</span><div><b>Built toward an offer in hand</b><small>The aim: an offer signed before final year begins.</small></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== OVERVIEW — the 60-second pitch ===================== -->
+<section class="overview pad" id="what">
+  <div class="orbs"><span class="orb o1" style="opacity:0.32"></span><span class="orb o2" style="opacity:0.28"></span></div>
+  <div class="wrap ov-grid">
+    <div class="ov-pitch reveal-l">
+      <div class="ov-badge"><span class="play">▶</span> Start here</div>
+      <h2>A complete engineering education for the AI era — <span class="accent">stacked on your degree.</span></h2>
+      <p class="ov-lead">ALP is a structured, AI-native training programme that prepares you for the jobs companies hire for <b>today</b> — not the ones a four-year syllabus was built for. It runs in parallel to your degree and stacks real, certified credentials across <b>four layers</b>, each mentored by engineers who've climbed the ladder and certified by the bodies hiring managers actually screen for.</p>
+      <p class="ov-kicker">Most students leave college <em>hoping</em> to get hired.<br>ALP students leave <span class="accent">choosing between offers.</span></p>
+      <div class="ov-cta"><a class="btn btn-light" href="#why">See the full breakdown <span class="arrow">↓</span></a></div>
+    </div>
+
+    <div class="ov-stack reveal-r">
+      <div class="stack-card">
+        <div class="stack-head"><span class="sh-title">One graduate. Four certified layers.</span><span class="sh-sub">Stacked</span></div>
+        <div class="stack-layer sl-4"><span class="sl-num">04</span><span class="sl-body"><span class="sl-name">Domain Context</span><span class="sl-desc">The industry you'll be hired into</span></span><span class="sl-cert">✓ Certified</span></div>
+        <div class="stack-layer sl-3"><span class="sl-num">03</span><span class="sl-body"><span class="sl-name">Stream Specialisation</span><span class="sl-desc">Go deep on one of five paths</span></span><span class="sl-cert">✓ Certified</span></div>
+        <div class="stack-layer sl-2"><span class="sl-num">02</span><span class="sl-body"><span class="sl-name">AI Stack</span><span class="sl-desc">Claude, Cursor, Copilot — daily</span></span><span class="sl-cert">✓ Certified</span></div>
+        <div class="stack-layer sl-1"><span class="sl-num">01</span><span class="sl-body"><span class="sl-name">CS Foundation</span><span class="sl-desc">Code, DSA, version control</span></span><span class="sl-cert">✓ Certified</span></div>
+      </div>
     </div>
   </div>
 </section>
@@ -842,7 +1053,7 @@
   <span class="blob b-blue" style="width:340px;height:340px;top:-60px;right:-80px;"></span>
   <div class="wrap">
     <div class="section-head reveal">
-      <div class="eyebrow">Why now</div>
+      <div class="chapter"><span class="ch-no">01</span> The ground just shifted</div>
       <h2>The career you were promised is no longer the career being hired for.</h2>
       <p class="sub">Three shifts are rewriting what it takes to walk out of college with a real job. Most syllabi haven't caught up. You don't have to wait for them.</p>
     </div>
@@ -870,7 +1081,7 @@
 <section class="shift pad" id="shift">
   <div class="wrap">
     <div class="section-head reveal">
-      <div class="eyebrow">The shift</div>
+      <div class="chapter"><span class="ch-no">02</span> Same person, different graduate</div>
       <h2>Same student. Different graduate.</h2>
       <p class="sub">What the same person looks like before ALP, and after.</p>
     </div>
@@ -909,7 +1120,7 @@
 <section class="not pad" id="not">
   <div class="wrap">
     <div class="section-head reveal">
-      <div class="eyebrow light">Read this twice</div>
+      <div class="chapter light"><span class="ch-no">03</span> Spot the imitations</div>
       <h2>What ALP is not.</h2>
       <p class="sub">Saying clearly what we're not is sharper than saying what we are.</p>
     </div>
@@ -942,7 +1153,7 @@
 <section class="train pad" id="train">
   <div class="wrap">
     <div class="section-head reveal">
-      <div class="eyebrow">What we actually train</div>
+      <div class="chapter"><span class="ch-no">04</span> What real engineering takes</div>
       <h2>Not a prompt monkey. A real engineer who happens to be AI-native.</h2>
       <p class="sub">Four pillars an ALP graduate is trained on. Each one is something a vibe coder can't fake under interview pressure — and exactly what a hiring manager screens for.</p>
     </div>
@@ -998,7 +1209,7 @@
 <section class="certs pad" id="certs">
   <div class="wrap">
     <div class="section-head reveal">
-      <div class="eyebrow">Certified, not self-declared</div>
+      <div class="chapter"><span class="ch-no">05</span> Proof, not promises</div>
       <h2>Four layers. Stacked credentials at every one.</h2>
       <p class="sub">ALP's curriculum is built as four layers — CS Foundation, AI Stack, Stream Specialisation and Domain Context. A graduate walks out with named, verifiable certifications at each layer. This isn't a credential, it's a stack.</p>
     </div>
@@ -1069,7 +1280,7 @@
 <section class="how pad" id="how">
   <div class="wrap">
     <div class="section-head reveal">
-      <div class="eyebrow">How we do it</div>
+      <div class="chapter"><span class="ch-no">06</span> Why it actually works</div>
       <h2>Three design choices. Everything else is a consequence.</h2>
       <p class="sub">The reason ALP works isn't a syllabus. It's these three refusals — the things we won't compromise on, no matter the cohort.</p>
     </div>
@@ -1097,7 +1308,7 @@
 <section class="journey pad" id="journey">
   <div class="wrap">
     <div class="section-head reveal">
-      <div class="eyebrow light">The journey</div>
+      <div class="chapter light"><span class="ch-no">07</span> Your year, mapped</div>
       <h2>Five phases. One outcome.</h2>
       <p class="sub">The full ALP arc, without the small print. Every phase exists to move you closer to the day you stop applying for jobs and start choosing between them.</p>
     </div>
@@ -1219,6 +1430,46 @@
     <div class="hero-ctas reveal d3">
       <a class="btn btn-light" href="#apply">Apply now <span class="arrow">→</span></a>
       <a class="btn btn-outline-light" href="#apply">Talk to someone first</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOMO — the cost of waiting ===================== -->
+<section class="fomo pad" id="fomo">
+  <div class="orbs"><span class="orb o1" style="opacity:0.3"></span><span class="orb o3" style="opacity:0.3"></span></div>
+  <div class="wrap">
+    <div class="section-head reveal" style="max-width:880px;margin:0 auto 48px;text-align:center;">
+      <div class="chapter light" style="justify-content:center;"><span class="ch-no">!</span> The part nobody tells you</div>
+      <h2>The gap is already widening. <span class="accent">Right now.</span></h2>
+      <p class="sub" style="margin:0 auto;">Somewhere in your college, a student just started stacking credentials. They're not smarter than you — they just started earlier. By final year they'll be choosing between offers, while everyone who waited is still sending cold applications into silence. Every semester you wait, that gap gets harder to close.</p>
+    </div>
+    <div class="paths">
+      <div class="path path-wait reveal-l">
+        <span class="path-tag">✕ If you wait one more semester</span>
+        <ul>
+          <li><span class="pic">✕</span> Another cohort starts ahead of you — that head start is gone for good.</li>
+          <li><span class="pic">✕</span> You reach final year with a degree and a hope, like everyone else.</li>
+          <li><span class="pic">✕</span> You compete for whatever role opens first, on someone else's terms.</li>
+        </ul>
+      </div>
+      <div class="path path-now reveal-r">
+        <span class="path-tag">✓ If you start with this cohort</span>
+        <ul>
+          <li><span class="pic">✓</span> You stack certified credentials from day one — ahead of your batch.</li>
+          <li><span class="pic">✓</span> You walk into final year with proof on the table, not promises.</li>
+          <li><span class="pic">✓</span> You pick the role. You don't get picked for the leftover one.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="fomo-cta reveal">
+      <div class="count-title" style="justify-content:center;">⏳ This cohort's applications close in</div>
+      <div class="fomo-count">
+        <div class="count-unit"><div class="cnum" id="cd-d2">00</div><div class="clab">Days</div></div>
+        <div class="count-unit"><div class="cnum" id="cd-h2">00</div><div class="clab">Hours</div></div>
+        <div class="count-unit"><div class="cnum" id="cd-m2">00</div><div class="clab">Mins</div></div>
+        <div class="count-unit"><div class="cnum" id="cd-s2">00</div><div class="clab">Secs</div></div>
+      </div>
+      <a class="btn btn-primary" href="#apply">Claim your seat before it's gone <span class="arrow">→</span></a>
     </div>
   </div>
 </section>
@@ -1374,11 +1625,22 @@
 <script>
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // ---------- Theme switcher (blue/white ⇄ colourful) ----------
+  const themeToggle = document.getElementById('themeToggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const goColor = document.documentElement.getAttribute('data-theme') !== 'color';
+      if (goColor) document.documentElement.setAttribute('data-theme', 'color');
+      else document.documentElement.removeAttribute('data-theme');
+      try { localStorage.setItem('alp-theme', goColor ? 'color' : 'blue'); } catch (e) {}
+    });
+  }
+
   /* ============================================================
      ⚙️  EDIT THESE TWO VALUES BEFORE GOING LIVE
      ============================================================ */
   const COHORT_DEADLINE = '2026-07-15T23:59:59';   // when applications for the next cohort close
-  const WHATSAPP_NUMBER = '919999999999';          // Raghu admissions WhatsApp, intl format, no '+'
+  const WHATSAPP_NUMBER = '919493925094';          // Raghu admissions WhatsApp, intl format, no '+'
   const WHATSAPP_TEXT   = "Hi! I'm a Raghu Engineering College student interested in the next ALP cohort.";
   /* ============================================================ */
 
@@ -1544,6 +1806,8 @@
     const mins = Math.floor((diff % 3600000) / 60000);
     const secs = Math.floor((diff % 60000) / 1000);
     if (cd.d) { cd.d.textContent = pad(days); cd.h.textContent = pad(hrs); cd.m.textContent = pad(mins); cd.s.textContent = pad(secs); }
+    const set2 = (id, v) => { const e = document.getElementById(id); if (e) e.textContent = v; };
+    set2('cd-d2', pad(days)); set2('cd-h2', pad(hrs)); set2('cd-m2', pad(mins)); set2('cd-s2', pad(secs));
     if (scCount) scCount.textContent = 'closes in ' + days + 'd ' + hrs + 'h ' + mins + 'm';
     return true;
   };
