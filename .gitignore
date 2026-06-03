@@ -1,0 +1,13 @@
+# ── SECRETS — never commit (would expose full Firebase project access) ──
+serviceAccountKey.json
+**/serviceAccountKey.json
+*serviceaccount*.json
+*-firebase-adminsdk-*.json
+
+# ── Node tooling (export script) ──
+node_modules/
+**/node_modules/
+
+# ── Generated spreadsheet exports ──
+*.xlsx
+*.csv

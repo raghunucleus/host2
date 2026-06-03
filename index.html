@@ -4,6 +4,9 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Raghu's ALP — We don't make vibe coders. We make engineers.</title>
+<!-- Rocket favicon (inline SVG, no extra file needed) — on-brand with the ALP launch motif -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%231f5fff'/><path d='M27 46 L32 59 L37 46 Z' fill='%23ffb020'/><path d='M21 40 L12 52 L22 47 Z' fill='%23ffffff'/><path d='M43 40 L52 52 L42 47 Z' fill='%23ffffff'/><path d='M32 6 C40 15 43 27 43 40 L43 47 L21 47 L21 40 C21 27 24 15 32 6 Z' fill='%23ffffff'/><circle cx='32' cy='27' r='6' fill='%231f5fff'/></svg>" />
+<meta name="theme-color" content="#1f5fff" />
 <meta name="description" content="Raghu's ALP is a structured, AI-native engineering training programme from Raghu Engineering College that prepares its students for the careers companies actually hire for today. We don't make vibe coders. We make engineers." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -135,6 +138,17 @@
     box-shadow: 0 1px 0 var(--line);
     padding: 12px 0;
   }
+  /* When the mobile drawer is open, the header must read as ONE solid bar —
+     otherwise the dark overlay (left) and white drawer (right) show through it. */
+  header.menu-open {
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    box-shadow: 0 1px 0 var(--line);
+  }
+  header.menu-open .logo { color: var(--ink); text-shadow: none; }
+  header.menu-open .logo .dot { color: var(--blue); }
+  header.menu-open .nav-cta .btn.apply-mini { display: none; }   /* redundant with the drawer's Apply; its glow crowded the ✕ */
   .nav { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
   .logo {
     font-family: 'Space Grotesk', sans-serif;
@@ -865,10 +879,74 @@
     font-family: 'Inter', sans-serif; font-size: 0.96rem; color: var(--ink); background: var(--bg-soft);
     transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
   }
-  .field input:focus, .field select:focus { outline: none; border-color: var(--blue); background: #fff; box-shadow: 0 0 0 4px rgba(31,95,255,0.12); }
+  /* Use background-COLOR (not the shorthand) so the select's chevron image/position isn't wiped on focus */
+  .field input:focus, .field select:focus { outline: none; border-color: var(--blue); background-color: #fff; box-shadow: 0 0 0 4px rgba(31,95,255,0.12); }
+  /* Long values (email/roll) shouldn't blow out the layout */
+  .field input { text-overflow: ellipsis; }
+  /* Modern custom-styled dropdown — native arrow removed, crisp chevron added */
+  .field select {
+    appearance: none; -webkit-appearance: none; -moz-appearance: none;
+    padding-right: 44px; cursor: pointer; text-overflow: ellipsis;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%235a6b8c' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 14px center; background-size: 18px;
+  }
+  .field select:focus {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%231f5fff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 14px center; background-size: 18px;
+  }
+  .field select option { color: var(--ink); }            /* readable in dark/colour themes */
   .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .form-card .btn { width: 100%; justify-content: center; margin-top: 8px; font-size: 1.02rem; padding: 1em 1.5em; }
+  /* Disabled submit — stays put, no hover lift, clear "not yet" affordance */
+  .form-card .btn[disabled], .form-card .btn:disabled {
+    opacity: 0.55; cursor: not-allowed; box-shadow: none; transform: none;
+    background: var(--blue); filter: grayscale(0.2);
+  }
+  .form-card .btn[disabled]:hover { transform: none; box-shadow: none; background: var(--blue); }
   .form-note { text-align: center; font-size: 0.78rem; color: var(--ink-faint); margin-top: 14px; }
+  /* ---- Auth gate (Firebase Google sign-in) ---- */
+  #authGate .gate-copy { color: var(--ink-soft); font-size: 0.95rem; line-height: 1.55; margin: 0 0 22px; }
+  .gsi-btn { display: flex; align-items: center; gap: 12px; }
+  .gsi-btn svg { background: #fff; border-radius: 3px; padding: 1px; flex: none; }
+  .gsi-btn[disabled] { opacity: 0.6; pointer-events: none; }
+  .auth-error { color: #c0392b; font-weight: 600; }
+  .signed-in-bar {
+    display: flex; align-items: center; gap: 12px;
+    background: linear-gradient(180deg, var(--bg-tint), var(--bg-soft));
+    border: 1px solid var(--line); border-radius: 14px;
+    padding: 9px 10px 9px 11px; margin-bottom: 22px;
+  }
+  .sib-avatar {
+    flex: none; width: 38px; height: 38px; border-radius: 50%;
+    background: linear-gradient(145deg, var(--blue-electric), var(--blue)); color: #fff;
+    display: grid; place-items: center;
+    box-shadow: 0 6px 14px -6px rgba(8,17,48,0.45);
+  }
+  .sib-avatar svg { width: 21px; height: 21px; }
+  .sib-meta { display: flex; flex-direction: column; min-width: 0; flex: 1; line-height: 1.3; }
+  .sib-label {
+    font-size: 0.66rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-faint); font-family: 'Space Grotesk', sans-serif;
+  }
+  .sib-meta b { color: var(--ink); font-size: 0.88rem; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .sib-signout {
+    flex: none; border: 1px solid var(--line); background: #fff; color: var(--ink-soft);
+    font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.78rem;
+    padding: 7px 15px; border-radius: 100px; cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+  .sib-signout:hover { border-color: var(--blue); color: var(--blue); background: var(--bg-tint); }
+  .field input[readonly] { background: var(--bg-tint); color: var(--ink-soft); cursor: not-allowed; }
+  .field-error { display: block; color: #c0392b; font-size: 0.76rem; font-weight: 600; margin-top: 6px; }
+  .field-error[hidden] { display: none; }
+  .field.invalid input, .field.invalid select { border-color: #c0392b; background: #fff5f4; }
+  .field.invalid input:focus, .field.invalid select:focus { box-shadow: 0 0 0 4px rgba(192,57,43,0.12); }
+  .form-error.form-level {
+    text-align: center; color: #c0392b; font-weight: 600; font-size: 0.85rem;
+    background: #fff5f4; border: 1px solid rgba(192,57,43,0.3); border-radius: 12px;
+    padding: 11px 14px; margin: 0 0 14px;
+  }
+  .form-error.form-level[hidden] { display: none; }
   .form-success { display: none; text-align: center; padding: 30px 10px; }
   .form-success.show { display: block; animation: popIn 0.5s var(--ease); }
   @keyframes popIn { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: none; } }
@@ -1899,28 +1977,55 @@
     </div>
 
     <div class="form-card reveal-r" id="formCard">
-      <form id="applyForm" novalidate>
+      <!-- Auth gate: the form stays locked until a verified @raghuenggcollege.in Google account signs in -->
+      <div id="authGate">
+        <h3>Apply to the next batch</h3>
+        <p class="fc-sub">Open to Raghu Engineering College students only.</p>
+        <p class="gate-copy">Sign in with your <b>college Google account</b> (<b>rollnumber@raghuenggcollege.in</b>) to register. This confirms you're a Raghu student.</p>
+        <button type="button" class="btn btn-primary gsi-btn" id="googleSignIn">
+          <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.92c1.7-1.57 2.68-3.88 2.68-6.62z"/><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26c-.81.54-1.84.86-3.04.86-2.34 0-4.32-1.58-5.03-3.7H.96v2.33A9 9 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.97 10.72a5.4 5.4 0 0 1 0-3.44V4.95H.96a9 9 0 0 0 0 8.1l3.01-2.33z"/><path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58C13.46.89 11.43 0 9 0A9 9 0 0 0 .96 4.95l3.01 2.33C4.68 5.16 6.66 3.58 9 3.58z"/></svg>
+          <span id="gsiLabel">Sign in with college account</span>
+        </button>
+        <p class="form-note auth-error" id="authError" hidden></p>
+        <p class="form-note">Personal Gmail or any non-college account can't apply.</p>
+      </div>
+
+      <form id="applyForm" novalidate hidden>
+        <div class="signed-in-bar" id="signedInBar">
+          <span class="sib-avatar" id="sibAvatar" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12.5a4.25 4.25 0 1 0 0-8.5 4.25 4.25 0 0 0 0 8.5Zm0 1.75c-4.27 0-7.75 2.4-7.75 5.5 0 .69.56 1.25 1.25 1.25h13c.69 0 1.25-.56 1.25-1.25 0-3.1-3.48-5.5-7.75-5.5Z"/></svg>
+          </span>
+          <span class="sib-meta">
+            <span class="sib-label">Signed in as</span>
+            <b id="userEmail"></b>
+          </span>
+          <button type="button" id="signOutBtn" class="sib-signout">Sign out</button>
+        </div>
         <h3>Apply to the next batch</h3>
         <p class="fc-sub">Raghu Engineering College students · takes ~2 minutes</p>
         <div class="field">
           <label for="f-name">Full name</label>
-          <input id="f-name" name="name" type="text" placeholder="Your name" required />
+          <input id="f-name" name="name" type="text" placeholder="Your name" autocomplete="name"
+                 required minlength="2" maxlength="60" />
+          <small class="field-error" data-for="f-name" hidden></small>
         </div>
         <div class="field">
-          <label for="f-roll">Roll number</label>
-          <input id="f-roll" name="roll" type="text" placeholder="Your college roll number" required />
+          <label for="f-roll">Roll number <span style="font-weight:400;color:var(--ink-faint)">(from sign-in)</span></label>
+          <input id="f-roll" name="roll" type="text" autocomplete="off"
+                 required readonly style="text-transform:uppercase" />
+          <small class="field-error" data-for="f-roll" hidden></small>
+        </div>
+        <div class="field">
+          <label for="f-email">College email <span style="font-weight:400;color:var(--ink-faint)">(from sign-in)</span></label>
+          <input id="f-email" name="email" type="email" placeholder="you@raghuenggcollege.in" readonly required />
         </div>
         <div class="field-row">
           <div class="field">
             <label for="f-phone">Phone / WhatsApp</label>
-            <input id="f-phone" name="phone" type="tel" placeholder="10-digit number" required />
+            <input id="f-phone" name="phone" type="tel" placeholder="10-digit mobile" autocomplete="tel"
+                   required inputmode="numeric" maxlength="10" />
+            <small class="field-error" data-for="f-phone" hidden></small>
           </div>
-          <div class="field">
-            <label for="f-email">Email <span style="font-weight:400;color:var(--ink-faint)">(optional)</span></label>
-            <input id="f-email" name="email" type="email" placeholder="you@email.com" />
-          </div>
-        </div>
-        <div class="field-row">
           <div class="field">
             <label for="f-year">Current year</label>
             <select id="f-year" name="year" required>
@@ -1930,34 +2035,40 @@
               <option>3rd year</option>
               <option>4th year</option>
             </select>
+            <small class="field-error" data-for="f-year" hidden></small>
           </div>
-          <div class="field">
-            <label for="f-branch">Branch</label>
-            <select id="f-branch" name="branch" required>
+        </div>
+        <div class="field">
+          <label for="f-branch">Branch</label>
+          <select id="f-branch" name="branch" required>
               <option value="" disabled selected>Select</option>
-              <option>CSE</option>
-              <option>IT</option>
-              <option>ECE</option>
-              <option>EEE</option>
-              <option>Mechanical</option>
-              <option>Civil</option>
-              <option>Other</option>
+              <option value="CSE"      data-name="B.Tech in Computer Science and Engineering">Computer Science &amp; Engineering (CSE)</option>
+              <option value="CSE-DS"   data-name="B.Tech in Computer Science and Engineering (Data Science)">CSE – Data Science (CSE-DS)</option>
+              <option value="CSE-AIML" data-name="B.Tech in Computer Science and Engineering (Artificial Intelligence &amp; Machine Learning)">CSE – AI &amp; ML (CSE-AIML)</option>
+              <option value="CSE-CS"   data-name="B.Tech in Computer Science and Engineering (Cyber Security)">CSE – Cyber Security (CSE-CS)</option>
+              <option value="CSE-IOT"  data-name="B.Tech in Computer Science and Engineering (IOT)">CSE – IoT (CSE-IOT)</option>
+              <option value="ECE"      data-name="B.Tech in Electronics &amp; Communication Engineering">Electronics &amp; Communication (ECE)</option>
+              <option value="ME"       data-name="B.Tech in Mechanical Engineering">Mechanical Engineering (ME)</option>
+              <option value="EEE"      data-name="B.Tech in Electrical &amp; Electronics Engineering">Electrical &amp; Electronics (EEE)</option>
+              <option value="CE"       data-name="B.Tech in Civil Engineering">Civil Engineering (CE)</option>
+              <option value="OTHER"    data-name="Other">Other</option>
             </select>
-          </div>
+          <small class="field-error" data-for="f-branch" hidden></small>
         </div>
         <div class="field">
           <label for="f-stream">Stream you're most drawn to <span style="font-weight:400;color:var(--ink-faint)">(optional)</span></label>
           <select id="f-stream" name="stream">
             <option value="" disabled selected>Select a specialisation</option>
-            <option>Full-Stack Engineering</option>
-            <option>DevOps + Cloud</option>
-            <option>Data Engineering</option>
-            <option>Cybersecurity</option>
-            <option>AI Engineering</option>
-            <option>Not sure yet — help me pick</option>
+            <option value="FULLSTACK">Full-Stack Engineering</option>
+            <option value="DEVOPS">DevOps + Cloud</option>
+            <option value="DATA">Data Engineering</option>
+            <option value="SECURITY">Cybersecurity</option>
+            <option value="AI">AI Engineering</option>
+            <option value="UNDECIDED">Not sure yet — help me pick</option>
           </select>
         </div>
-        <button class="btn btn-primary" type="submit">Apply to the next batch <span class="arrow">→</span></button>
+        <p class="form-error form-level" id="formError" role="alert" hidden></p>
+        <button class="btn btn-primary" type="submit" disabled>Apply to the next batch <span class="arrow">→</span></button>
         <p class="form-note">Registration happens right here on this form. We'll never share your details — no spam, just batch information.<br>Just have a question? <a id="waForm" href="#apply" target="_blank" rel="noopener" style="color:var(--blue);font-weight:600;">Ask us on WhatsApp</a> — we're happy to help.</p>
       </form>
       <div class="form-success" id="formSuccess">
@@ -2091,6 +2202,7 @@
     hamburger.classList.toggle('open', open);
     mobileMenu.classList.toggle('open', open);
     overlay.classList.toggle('show', open);
+    header.classList.toggle('menu-open', open);   // make the header a solid bar while the drawer is open
     document.body.style.overflow = open ? 'hidden' : '';
   };
   hamburger.addEventListener('click', () => toggleMenu(!mobileMenu.classList.contains('open')));
@@ -2188,22 +2300,7 @@
   });
 
   // ---------- Apply form ----------
-  const form = document.getElementById('applyForm');
-  const success = document.getElementById('formSuccess');
-  if (form) {
-    form.addEventListener('submit', (ev) => {
-      ev.preventDefault();
-      // basic native validation
-      if (!form.checkValidity()) { form.reportValidity(); return; }
-      // TODO: connect to a real endpoint (Formspree / Google Form / WhatsApp / backend).
-      // For now we capture the data and show a confirmation.
-      const data = Object.fromEntries(new FormData(form).entries());
-      console.log('ALP application submitted:', data);
-      form.style.display = 'none';
-      success.classList.add('show');
-      success.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
-    });
-  }
+  // Submission + auth gating is handled by the Firebase module script near the end of <body>.
 
   // ---------- WhatsApp links ----------
   const waHref = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(WHATSAPP_TEXT);
@@ -2294,6 +2391,385 @@
   };
   updateSticky();
   window.addEventListener('scroll', updateSticky, { passive: true });
+</script>
+
+<!-- =====================================================================
+     FIREBASE: college-only Google sign-in + Firestore submission
+     ---------------------------------------------------------------------
+     SETUP: see FIREBASE_SETUP.md. Paste your project's config below.
+     The values below are NOT secret — they are meant to ship in the client.
+     Real security is enforced by the Firestore rules in FIREBASE_SETUP.md.
+     ===================================================================== -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+  import {
+    getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut,
+    setPersistence, browserSessionPersistence
+  } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+  import {
+    getFirestore, doc, getDoc, setDoc, serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+  // ▼▼▼ REPLACE with your Firebase project config (Console → Project settings → Your apps) ▼▼▼
+  const firebaseConfig = {
+    apiKey:            "AIzaSyCCpLKsDeaU4YHLHGwlrkGdcUQB6Ch9ot4",
+    authDomain:        "raghu-alp.firebaseapp.com",
+    projectId:         "raghu-alp",
+    storageBucket:     "raghu-alp.firebasestorage.app",
+    messagingSenderId: "8479956398",
+    appId:             "1:8479956398:web:ae4b4cc5877f2e08ca3c3f"
+  };
+  // ▲▲▲ REPLACE the six values above ▲▲▲
+
+  const ALLOWED_DOMAIN = "raghuenggcollege.in";
+
+  const app  = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db   = getFirestore(app);
+
+  // Shared-device safety: keep the login only for the current browser session.
+  // When the student closes the tab/browser, they're signed out automatically,
+  // so the next person on a shared lab PC starts signed-out. (Best-effort —
+  // if it fails, Firebase falls back to its default persistence.)
+  setPersistence(auth, browserSessionPersistence).catch((err) =>
+    console.warn("Could not set session-only auth persistence:", err)
+  );
+
+  const provider = new GoogleAuthProvider();
+  // hd = hosted-domain hint: pre-filters Google's account chooser to the college domain.
+  // (A hint only — the real enforcement is the email check below + Firestore rules.)
+  provider.setCustomParameters({ hd: ALLOWED_DOMAIN, prompt: "select_account" });
+
+  // --- Elements ---
+  const authGate    = document.getElementById("authGate");
+  const signInBtn   = document.getElementById("googleSignIn");
+  const gsiLabel    = document.getElementById("gsiLabel");
+  const authError   = document.getElementById("authError");
+  const form        = document.getElementById("applyForm");
+  const success     = document.getElementById("formSuccess");
+  const emailInput  = document.getElementById("f-email");
+  const userEmailEl = document.getElementById("userEmail");
+  const signOutBtn  = document.getElementById("signOutBtn");
+  const sibAvatar   = document.getElementById("sibAvatar");
+  const submitBtn   = form ? form.querySelector('button[type="submit"]') : null;
+  const formTitle   = form ? form.querySelector("h3") : null;
+  const formSub     = form ? form.querySelector(".fc-sub") : null;
+  const successTitle = success ? success.querySelector("h3") : null;
+  const successBody  = success ? success.querySelector("p") : null;
+  const formError   = document.getElementById("formError");
+  const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const NEW_TITLE = "Apply to the next batch";
+  const NEW_SUB   = "Raghu Engineering College students · takes ~2 minutes";
+  const SUBMIT_HTML = 'Apply to the next batch <span class="arrow">→</span>';
+  const UPDATE_HTML = 'Update my application <span class="arrow">→</span>';
+  // Tracks whether the signed-in student already has a saved application.
+  let alreadyApplied = false;
+
+  const isCollegeEmail = (email) =>
+    typeof email === "string" && email.toLowerCase().endsWith("@" + ALLOWED_DOMAIN);
+
+  // Roll number = the part of the college email before "@", upper-cased.
+  // e.g. 21981a0501@raghuenggcollege.in → "21981A0501"
+  const rollFromEmail = (email) =>
+    (typeof email === "string" ? email.split("@")[0] : "").toUpperCase();
+
+  // Deterministic avatar colour from the email — each student gets a consistent
+  // avatar (no reliance on the first character). Kept within the brand BLUE family
+  // so it always matches the white-and-blue theme — only the shade varies slightly.
+  const avatarGradient = (seed) => {
+    let h = 0;
+    const s = String(seed || "");
+    for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
+    const hue   = 210 + (h % 24);        // 210–233: brand blue → indigo only
+    const light = 50 + (h % 8);          // subtle per-student variation in shade
+    return "linear-gradient(145deg, hsl(" + hue + " 88% " + (light + 7) + "%), hsl(" + (hue + 8) + " 82% " + (light - 8) + "%))";
+  };
+
+  const showError = (msg) => {
+    if (!authError) return;
+    authError.textContent = msg;
+    authError.hidden = false;
+  };
+  const clearError = () => { if (authError) authError.hidden = true; };
+
+  // Form-level message (visible while the FORM is shown — authError is inside the
+  // gate, which is hidden once you're signed in, so submit/read errors must go here).
+  const showFormError = (msg) => {
+    if (!formError) return;
+    formError.textContent = msg;
+    formError.hidden = false;
+    formError.scrollIntoView({ behavior: prefersReduced ? "auto" : "smooth", block: "center" });
+  };
+  const clearFormError = () => { if (formError) formError.hidden = true; };
+
+  // Turn a Firestore error into something a student (and you) can act on.
+  const friendlyDbError = (err) => {
+    const code = err && err.code ? err.code : "error";
+    if (code === "permission-denied") {
+      return "Permission denied by the database. (Admin: publish the updated Firestore security rules — see FIREBASE_SETUP.md step 5.)";
+    }
+    if (code === "unavailable") {
+      return "Can't reach the database — check your internet connection and try again.";
+    }
+    return "Something went wrong (" + code + "). Please try again.";
+  };
+
+  // --- Field validation ---
+  const fieldError = (id, msg) => {
+    const el = document.getElementById(id);
+    const wrap = el ? el.closest(".field") : null;
+    const note = document.querySelector('.field-error[data-for="' + id + '"]');
+    if (wrap) wrap.classList.add("invalid");
+    if (note) { note.textContent = msg; note.hidden = false; }
+  };
+  const clearFieldError = (id) => {
+    const el = document.getElementById(id);
+    const wrap = el ? el.closest(".field") : null;
+    const note = document.querySelector('.field-error[data-for="' + id + '"]');
+    if (wrap) wrap.classList.remove("invalid");
+    if (note) note.hidden = true;
+  };
+
+  const validators = {
+    "f-name": (v) => {
+      if (!v) return "Please enter your full name.";
+      if (v.length < 2) return "Name looks too short.";
+      if (!/^[A-Za-z][A-Za-z .'-]*$/.test(v)) return "Use letters only — no numbers or symbols.";
+      return "";
+    },
+    // Roll is auto-filled (read-only) from the verified college email, so this is
+    // just a safety net — it should always pass for a real sign-in.
+    "f-roll": (v) => v ? "" : "Roll number is missing — please sign in with your college email.",
+    "f-phone": (v) => {
+      if (!v) return "Please enter your phone number.";
+      if (!/^[6-9]\d{9}$/.test(v)) return "Enter a valid 10-digit Indian mobile number.";
+      return "";
+    },
+    "f-year":   (v) => v ? "" : "Please select your current year.",
+    "f-branch": (v) => v ? "" : "Please select your branch."
+  };
+
+  // Silent pass/fail of every required field — drives the submit button's enabled state.
+  const formIsValid = () =>
+    Object.keys(validators).every((id) => {
+      const el = document.getElementById(id);
+      return el && !validators[id]((el.value || "").trim());
+    });
+
+  // The submit button is enabled ONLY when all required fields are valid.
+  const updateSubmitState = () => {
+    if (submitBtn) submitBtn.disabled = !formIsValid();
+  };
+
+  // Validate one field and show/clear its inline message.
+  const validateField = (id) => {
+    const el = document.getElementById(id);
+    if (!el || !validators[id]) return;
+    const msg = validators[id]((el.value || "").trim());
+    if (msg) fieldError(id, msg); else clearFieldError(id);
+  };
+
+  // Validate ALL fields and show errors (used as a final guard on submit).
+  const validateForm = () => {
+    let firstBad = null;
+    for (const id of Object.keys(validators)) {
+      const el = document.getElementById(id);
+      if (!el) continue;
+      const msg = validators[id]((el.value || "").trim());
+      if (msg) { fieldError(id, msg); if (!firstBad) firstBad = el; }
+      else { clearFieldError(id); }
+    }
+    if (firstBad) {
+      firstBad.focus();
+      firstBad.scrollIntoView({ behavior: prefersReduced ? "auto" : "smooth", block: "center" });
+    }
+    return !firstBad;
+  };
+
+  // Live wiring: keep phone digits-only; as the user types, clear the error and
+  // re-check the button; when they leave a field (blur) or pick a dropdown value,
+  // show that field's error if it's still wrong.
+  const phoneEl = document.getElementById("f-phone");
+  if (phoneEl) phoneEl.addEventListener("input", () => {
+    phoneEl.value = phoneEl.value.replace(/\D/g, "").slice(0, 10);
+    clearFieldError("f-phone");
+    updateSubmitState();
+  });
+  Object.keys(validators).forEach((id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (id !== "f-phone") {
+      el.addEventListener("input", () => { clearFieldError(id); updateSubmitState(); });
+    }
+    el.addEventListener("change", () => { validateField(id); updateSubmitState(); });
+    el.addEventListener("blur", () => validateField(id));
+  });
+
+  // --- Sign in ---
+  if (signInBtn) {
+    signInBtn.addEventListener("click", async () => {
+      clearError();
+      signInBtn.disabled = true;
+      gsiLabel.textContent = "Signing in…";
+      try {
+        const { user } = await signInWithPopup(auth, provider);
+        // Hard enforcement on the client (Google's hd hint can be bypassed by the user).
+        if (!isCollegeEmail(user.email)) {
+          await signOut(auth);
+          showError("That's not a Raghu College account. Please sign in with your @" + ALLOWED_DOMAIN + " email.");
+        }
+      } catch (err) {
+        if (err && err.code === "auth/popup-closed-by-user") {
+          showError("Sign-in was cancelled. Please try again.");
+        } else if (err && err.code === "auth/unauthorized-domain") {
+          showError("This site isn't authorised in Firebase yet. (Admin: add this domain in Authentication → Settings.)");
+        } else {
+          showError("Couldn't sign in. Please try again. (" + (err && err.code ? err.code : "error") + ")");
+        }
+      } finally {
+        signInBtn.disabled = false;
+        gsiLabel.textContent = "Sign in with college account";
+      }
+    });
+  }
+
+  if (signOutBtn) {
+    signOutBtn.addEventListener("click", () => signOut(auth));
+  }
+
+  const setField = (id, value) => {
+    const el = document.getElementById(id);
+    if (el && value != null && value !== "") el.value = value;
+  };
+
+  // Restyle the form as "new application" vs "update existing".
+  const applyMode = (existing) => {
+    alreadyApplied = !!existing;
+    if (formTitle) formTitle.textContent = existing ? "You've already registered" : NEW_TITLE;
+    if (formSub) formSub.textContent = existing
+      ? "Here's what you submitted — update anything and save again."
+      : NEW_SUB;
+    if (submitBtn) submitBtn.innerHTML = existing ? UPDATE_HTML : SUBMIT_HTML;
+  };
+
+  // --- Auth state → toggle gate vs form, load any prior submission ---
+  onAuthStateChanged(auth, async (user) => {
+    const ok = user && isCollegeEmail(user.email);
+    if (!ok) {
+      if (authGate) authGate.hidden = false;
+      if (form) form.hidden = true;
+      if (emailInput) emailInput.value = "";
+      return;
+    }
+
+    clearError();
+    clearFormError();
+    if (success) success.classList.remove("show");
+    if (form) form.reset();                                 // clear any prior user's input (shared devices)
+    ["f-name", "f-roll", "f-phone", "f-year", "f-branch"].forEach(clearFieldError);
+    if (emailInput) emailInput.value = user.email;          // lock to verified address
+    const rollInput = document.getElementById("f-roll");
+    if (rollInput) rollInput.value = rollFromEmail(user.email); // derived from email
+    if (userEmailEl) userEmailEl.textContent = user.email;
+    if (sibAvatar) sibAvatar.style.background = avatarGradient(user.email);
+
+    // One document per student, keyed by uid → fetch their prior application (if any).
+    let prior = null;
+    try {
+      const snap = await getDoc(doc(db, "applications", user.uid));
+      if (snap.exists()) prior = snap.data();
+    } catch (err) {
+      // Read failed — most often the security rules aren't published yet. Tell the
+      // user instead of silently showing a blank form (which looked like "data lost").
+      console.warn("Could not load existing application:", err);
+      showFormError("Couldn't load your saved application. " + friendlyDbError(err));
+    }
+
+    if (prior) {
+      setField("f-name", prior.name);
+      // roll is derived from the email above — not restored from the saved doc.
+      setField("f-phone", prior.phone);
+      setField("f-year", prior.year);
+      setField("f-branch", prior.branchCode || prior.branch);   // restore by code
+      setField("f-stream", prior.streamCode || prior.stream);
+    }
+    applyMode(!!prior);
+    updateSubmitState();   // enable the button immediately if prefilled data is valid
+
+    if (authGate) authGate.hidden = true;
+    if (form) form.hidden = false;
+  });
+
+  // --- Submit → write to Firestore ---
+  if (form) {
+    form.addEventListener("submit", async (ev) => {
+      ev.preventDefault();
+      clearFormError();
+      const user = auth.currentUser;
+      if (!user || !isCollegeEmail(user.email)) {
+        showFormError("Please sign in with your college account first.");
+        return;
+      }
+      // Force the email + derived roll to the verified values, then validate.
+      if (emailInput) emailInput.value = user.email;
+      const rollInput = document.getElementById("f-roll");
+      if (rollInput) rollInput.value = rollFromEmail(user.email);
+      if (!validateForm()) return;
+
+      const data = Object.fromEntries(new FormData(form).entries());
+
+      // Read both the code (option value) and the full official name (option text /
+      // data-name) so the stored record is SQL/Excel friendly — separate columns.
+      const branchSel = document.getElementById("f-branch");
+      const streamSel = document.getElementById("f-stream");
+      const branchOpt = branchSel && branchSel.selectedIndex >= 0 ? branchSel.options[branchSel.selectedIndex] : null;
+      const streamOpt = streamSel && streamSel.selectedIndex >= 0 ? streamSel.options[streamSel.selectedIndex] : null;
+      const branchCode = branchSel ? branchSel.value : "";
+      const branchName = branchOpt && branchCode ? (branchOpt.dataset.name || branchOpt.textContent.trim()) : "";
+      const streamCode = streamSel ? streamSel.value : "";
+      const streamName = streamOpt && streamCode ? (streamOpt.dataset.name || streamOpt.textContent.trim()) : "";
+
+      const updating = alreadyApplied;
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = updating ? "Saving…" : "Submitting…"; }
+      try {
+        const payload = {
+          name:       data.name  || "",
+          roll:       rollFromEmail(user.email),  // derived from verified email
+          phone:      data.phone || "",
+          email:      user.email,           // verified, matches the rule
+          year:       data.year  || "",
+          branchCode: branchCode,           // e.g. "CSE-AIML"
+          branchName: branchName,           // e.g. "B.Tech in Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
+          streamCode: streamCode,           // e.g. "AI"  (may be empty — stream is optional)
+          streamName: streamName,           // e.g. "AI Engineering"
+          uid:        user.uid,             // matches the rule (docId == uid)
+          updatedAt:  serverTimestamp()
+        };
+        // First submission stamps createdAt; updates leave it untouched (merge).
+        if (!updating) payload.createdAt = serverTimestamp();
+
+        // Doc id = uid → exactly one application per student. setDoc upserts,
+        // so a returning student updates their record instead of duplicating it.
+        await setDoc(doc(db, "applications", user.uid), payload, { merge: true });
+
+        alreadyApplied = true;
+        if (successTitle) successTitle.textContent = updating ? "Your details are updated." : "You're in the queue.";
+        if (successBody) successBody.textContent = updating
+          ? "Thanks — we've saved your changes. You can sign in again anytime to update them."
+          : "Thanks — we've got your application for the next ALP batch at Raghu Engineering College. Our team will reach out shortly with the next steps. Welcome to the climb.";
+        form.hidden = true;
+        if (success) {
+          success.classList.add("show");
+          success.scrollIntoView({ behavior: prefersReduced ? "auto" : "smooth", block: "center" });
+        }
+      } catch (err) {
+        console.error("Save failed:", err);
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.innerHTML = updating ? UPDATE_HTML : SUBMIT_HTML; }
+        showFormError("Couldn't save your application. " + friendlyDbError(err));
+      }
+    });
+  }
 </script>
 </body>
 </html>
