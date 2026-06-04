@@ -371,6 +371,11 @@
   .sl-2 { background: linear-gradient(120deg, #0c3ec4, #1f5fff); }
   .sl-3 { background: linear-gradient(120deg, #1f5fff, #3d8bff); }
   .sl-4 { background: linear-gradient(120deg, #3d8bff, #63a6ff); }
+  /* On phones the nowrap "What we teach" pill squeezes the title — stack them instead */
+  @media (max-width: 560px) {
+    .stack-head { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .stack-head .sh-sub { order: -1; }
+  }
 
   @media (max-width: 880px) {
     .ov-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -1565,10 +1570,10 @@
     <div class="ov-stack reveal-r">
       <div class="stack-card">
         <div class="stack-head"><span class="sh-title">One curriculum. Four stacked layers.</span><span class="sh-sub">What we teach</span></div>
-        <div class="stack-layer sl-4"><span class="sl-num">04</span><span class="sl-body"><span class="sl-name">Domain Context</span><span class="sl-desc"><b>What we teach:</b> Industry models, business workflows, regulatory basics, domain architectures and real product case studies across HR-tech, Fintech, Manufacturing, Healthcare & E-commerce.</span></span></div>
-        <div class="stack-layer sl-3"><span class="sl-num">03</span><span class="sl-body"><span class="sl-name">Stream Specialisation</span><span class="sl-desc"><b>What we teach:</b> Depends on your stream — Full-Stack (MERN, APIs, auth), DevOps (containers, CI/CD, IaC), Data (pipelines, warehouses, BI), Cybersecurity (network + app sec, SOC) or AI Engineering (multi-agent systems, orchestration, eval at scale).</span></span></div>
-        <div class="stack-layer sl-2"><span class="sl-num">02</span><span class="sl-body"><span class="sl-name">AI Stack</span><span class="sl-desc"><b>What we teach:</b> Prompt & context engineering, AI-paired development, RAG, agent fundamentals, evaluation pipelines and LLM application architecture.</span></span></div>
         <div class="stack-layer sl-1"><span class="sl-num">01</span><span class="sl-body"><span class="sl-name">CS Foundation</span><span class="sl-desc"><b>What we teach:</b> Programming fundamentals, Data Structures & Algorithms, OOP, version control, testing & debugging.</span></span></div>
+        <div class="stack-layer sl-2"><span class="sl-num">02</span><span class="sl-body"><span class="sl-name">AI Stack</span><span class="sl-desc"><b>What we teach:</b> Prompt & context engineering, AI-paired development, RAG, agent fundamentals, evaluation pipelines and LLM application architecture.</span></span></div>
+        <div class="stack-layer sl-3"><span class="sl-num">03</span><span class="sl-body"><span class="sl-name">Stream Specialisation</span><span class="sl-desc"><b>What we teach:</b> Depends on your stream — Full-Stack (MERN, APIs, auth), DevOps (containers, CI/CD, IaC), Data (pipelines, warehouses, BI), Cybersecurity (network + app sec, SOC) or AI Engineering (multi-agent systems, orchestration, eval at scale).</span></span></div>
+        <div class="stack-layer sl-4"><span class="sl-num">04</span><span class="sl-body"><span class="sl-name">Domain Context</span><span class="sl-desc"><b>What we teach:</b> Industry models, business workflows, regulatory basics, domain architectures and real product case studies across HR-tech, Fintech, Manufacturing, Healthcare & E-commerce.</span></span></div>
       </div>
     </div>
   </div>
