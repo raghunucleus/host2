@@ -356,9 +356,9 @@
   .ov-cta { margin-top: 30px; }
 
   .stack-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius-lg); padding: 24px; box-shadow: 0 34px 80px -34px rgba(0,0,0,0.65); }
-  .stack-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; padding: 0 4px; }
-  .stack-head .sh-title { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.95rem; color: #fff; }
-  .stack-head .sh-sub { font-size: 0.68rem; color: #9fadd8; text-transform: uppercase; letter-spacing: 0.14em; border: 1px solid rgba(255,255,255,0.18); padding: 4px 10px; border-radius: 100px; }
+  .stack-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 18px; padding: 0 4px; }
+  .stack-head .sh-title { flex: 1 1 auto; min-width: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.95rem; color: #fff; }
+  .stack-head .sh-sub { flex: none; white-space: nowrap; font-size: 0.66rem; color: #9fadd8; text-transform: uppercase; letter-spacing: 0.1em; border: 1px solid rgba(255,255,255,0.18); padding: 5px 13px; border-radius: 100px; line-height: 1; }
   .stack-layer { display: flex; align-items: flex-start; gap: 14px; padding: 16px 18px; border-radius: 14px; margin-bottom: 10px; color: #fff; box-shadow: 0 12px 26px -14px rgba(0,0,0,0.6); transition: transform 0.3s var(--ease); }
   .stack-layer:last-child { margin-bottom: 0; }
   .stack-layer:hover { transform: translateX(7px); }
@@ -700,6 +700,25 @@
   .reveal-l.in { opacity: 1; transform: none; filter: blur(0); }
   .reveal-r { opacity: 0; transform: translateX(46px); filter: blur(5px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease), filter 0.8s var(--ease); }
   .reveal-r.in { opacity: 1; transform: none; filter: blur(0); }
+
+  /* ---- Mobile performance: trim GPU-heavy decorative effects on small screens ----
+     Phone GPUs struggle with large blur radii + infinite float animations and with
+     re-rasterizing animated blur() on every reveal. We drop the animated blur, stop
+     the orb/blob float loops, shrink blur radii, and hide the third orb — the static
+     look is preserved while continuous compositing work is cut. */
+  @media (max-width: 760px) {
+    .reveal, .reveal-l, .reveal-r { filter: none !important; }
+    .reveal-l { transform: translateX(-28px); }
+    .reveal-r { transform: translateX(28px); }
+    .orb { animation: none !important; filter: blur(40px); will-change: auto; opacity: 0.4; }
+    .orb.o3 { display: none; }
+    .blob { animation: none !important; filter: blur(46px); }
+    /* Backdrop blur is recomputed every scroll frame — swap for a near-solid bar */
+    header.scrolled {
+      backdrop-filter: none; -webkit-backdrop-filter: none;
+      background: rgba(255,255,255,0.97);
+    }
+  }
 
   /* ---- Scroll progress bar ---- */
   .scroll-progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 200; background: transparent; pointer-events: none; }
@@ -2217,6 +2236,9 @@
 
 <script>
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Low-power devices (touch/coarse-pointer or small screens) skip the heaviest
+  // decorative effects — scroll parallax on blurred orbs is the main offender.
+  const lowPower = reduce || !window.matchMedia('(hover: hover) and (min-width: 900px)').matches;
 
   // ---------- Launch splash (rocket preloader) ----------
   // Runs first so the page never gets stuck behind it, whatever happens later.
@@ -2252,6 +2274,7 @@
   const header = document.getElementById('header');
   const bar = document.getElementById('scrollBar');
   const toTop = document.getElementById('toTop');
+  let scrollTicking = false;
   const onScroll = () => {
     const y = window.scrollY;
     header.classList.toggle('scrolled', y > 20);
@@ -2259,8 +2282,14 @@
     bar.style.width = (h > 0 ? (y / h) * 100 : 0) + '%';
     toTop.classList.toggle('show', y > 600);
   };
+  // rAF-throttle so we run the layout-reading handler at most once per frame.
+  const onScrollThrottled = () => {
+    if (scrollTicking) return;
+    scrollTicking = true;
+    requestAnimationFrame(() => { onScroll(); scrollTicking = false; });
+  };
   onScroll();
-  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('scroll', onScrollThrottled, { passive: true });
   toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }));
 
   // ---------- Mobile menu ----------
@@ -2324,11 +2353,19 @@
   }
 
   // ---------- Parallax orbs (hero) ----------
-  if (!reduce) {
+  // Skipped on low-power/touch devices: transforming blur(60px) layers on every
+  // scroll frame is expensive and janky on mobile GPUs.
+  if (!lowPower) {
     const orbs = document.querySelectorAll('.orb');
+    let parallaxTicking = false;
     window.addEventListener('scroll', () => {
-      const y = window.scrollY;
-      orbs.forEach((o, i) => { o.style.transform = `translateY(${y * (0.06 + i * 0.03)}px)`; });
+      if (parallaxTicking) return;
+      parallaxTicking = true;
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        orbs.forEach((o, i) => { o.style.transform = `translateY(${y * (0.06 + i * 0.03)}px)`; });
+        parallaxTicking = false;
+      });
     }, { passive: true });
   }
 
